@@ -14,8 +14,8 @@ public class test_fe : MonoBehaviour
     private int jumpCount;
 
     private float jumpCoff;
-    public float moveCoff;
-    public float speed;
+    private float moveCoff;
+    private float speed;
 
     private bool isGrounded;
     private bool isGroundedPrev;
@@ -174,13 +174,25 @@ public class test_fe : MonoBehaviour
         {
             return;
         }
-        else if (Input.GetButtonDown("Jump") == false)
+
+        if (Input.GetButtonDown("Jump") == false)
         {
             return;
         }
-
-        jumpCount--;
-        rb2d.velocity = new Vector2(rb2d.velocity.x, jumpCoff);
-        animator.SetTrigger("Jump");
+        if (jumpCount == 2)
+        {
+            jumpCount--;
+            rb2d.velocity = new Vector2(rb2d.velocity.x, jumpCoff);
+            animator.SetTrigger("Jump");
+            Debug.Log(jumpCount);
+        }
+        else if(jumpCount == 1)
+        {
+            jumpCount--;
+            rb2d.velocity = new Vector2(rb2d.velocity.x, jumpCoff);
+            animator.SetTrigger("Jump_two");
+            Debug.Log(jumpCount);
+        }
+        
     }
 }
