@@ -21,7 +21,7 @@ public class PlayerMain : MonoBehaviour
     void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
-        //animator = transform.Find("Sprite").GetComponent<Animator>();
+        animator = transform.Find("Sprite").GetComponent<Animator>();
         check = transform.Find("Check");
 
         xAxis = 0;
@@ -51,7 +51,7 @@ public class PlayerMain : MonoBehaviour
         isGroundedPrev = isGrounded;
         isGrounded = false;
 
-        Collider2D[] c2ds = Physics2D.OverlapBoxAll(check.position, new Vector2(2, 0.1f), 0);
+        Collider2D[] c2ds = Physics2D.OverlapBoxAll(check.position, new Vector2(2.5f, 0.2f), 0);
         foreach(Collider2D c2d in c2ds)
         {
             if(c2d.gameObject.layer == 7)
@@ -67,7 +67,7 @@ public class PlayerMain : MonoBehaviour
         if(isGrounded == true && isGroundedPrev == false && jumpCount <= 1)
         {
             jumpCount = 2;
-            //animator.SetTrigger("Idle");
+            animator.SetTrigger("Idle");
         }
     }
 
@@ -104,12 +104,12 @@ public class PlayerMain : MonoBehaviour
         if(Mathf.Abs(xAxis) < 0.1f)
         {
             xAxis = 0;
-            //animator.SetBool("IsWalk", false);
+            animator.SetBool("IsWalk", false);
         }
 
         else
         {
-            //animator.SetBool("IsWalk", true);
+            animator.SetBool("IsWalk", true);
         }
     }
 
@@ -126,6 +126,6 @@ public class PlayerMain : MonoBehaviour
 
         jumpCount--;
         rb2d.velocity = new Vector2(rb2d.velocity.x, jumpCoff);
-        //animator.SetTrigger("Jump");
+        animator.SetTrigger("Jump");
     }
 }
