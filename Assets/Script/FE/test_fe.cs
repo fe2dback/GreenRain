@@ -117,7 +117,7 @@ public class test_fe : MonoBehaviour
             
             if (isGrounded == false)
             {
-                moveCoff = moveCoff;
+                moveCoff = 200f;
             }
             else
             {
