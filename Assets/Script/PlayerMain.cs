@@ -14,6 +14,7 @@ public class PlayerMain : MonoBehaviour
 
     private float jumpCoff;
     private float moveCoff;
+    private float speed;
 
     private bool isGrounded;
     private bool isGroundedPrev;
@@ -31,6 +32,7 @@ public class PlayerMain : MonoBehaviour
 
         jumpCoff = 35;
         moveCoff = 200f;
+        speed = 400f;
 
         isGrounded = false;
         isGroundedPrev = false;
@@ -51,7 +53,7 @@ public class PlayerMain : MonoBehaviour
         isGroundedPrev = isGrounded;
         isGrounded = false;
 
-        Collider2D[] c2ds = Physics2D.OverlapBoxAll(check.position, new Vector2(2.5f, 0.2f), 0);
+        Collider2D[] c2ds = Physics2D.OverlapBoxAll(check.position, new Vector2(2, 0.1f), 0);
         foreach(Collider2D c2d in c2ds)
         {
             if(c2d.gameObject.layer == 7)
@@ -73,6 +75,14 @@ public class PlayerMain : MonoBehaviour
 
     private void SetVelocity()
     {
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            moveCoff = speed;
+        }
+        else
+        {
+            moveCoff = 200f;
+        }
         rb2d.AddForce(new Vector2(xAxis * moveCoff, 0));
 
         float x = Mathf.Clamp(rb2d.velocity.x, -6, 6);
