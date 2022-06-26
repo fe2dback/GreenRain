@@ -18,6 +18,9 @@ public class PlayerMain : MonoBehaviour
 
     private bool isGrounded;
     private bool isGroundedPrev;
+
+    private float curTime;
+    private float coolTime;
     
     void Start()
     {
@@ -33,9 +36,11 @@ public class PlayerMain : MonoBehaviour
         jumpCoff = 35;
         moveCoff = 200f;
         speed = 400f;
-
         isGrounded = false;
         isGroundedPrev = false;
+
+        curTime = 0;
+        coolTime = 0.5f;
     }
 
     private void FixedUpdate()
@@ -46,7 +51,10 @@ public class PlayerMain : MonoBehaviour
         SetLocalScale();
         isCheckGrounded();
         isCheckLanded();
+        
     }
+
+    
 
     private void isCheckGrounded()
     {
@@ -113,6 +121,8 @@ public class PlayerMain : MonoBehaviour
     {
         ActionMove();
         ActionJump();
+        playerAttack();
+        
     }
 
     private void ActionMove()
@@ -147,9 +157,29 @@ public class PlayerMain : MonoBehaviour
         {
             rb2d.velocity = new Vector2(rb2d.velocity.x, jumpCoff);
             animator.SetTrigger("Jump_two");
-            return;
         }
-        rb2d.velocity = new Vector2(rb2d.velocity.x, jumpCoff);
-        animator.SetTrigger("Jump");
+        else if(jumpCount == 1)
+        {
+            rb2d.velocity = new Vector2(rb2d.velocity.x, jumpCoff);
+            animator.SetTrigger("Jump");
+        }
+
+    }
+    private void playerAttack()
+    {
+
+        if (curTime <= 0)
+        {
+            if (Input.GetKey(KeyCode.Z))
+            {
+                animator.SetTrigger("Attack");
+                curTime = coolTime;
+            }
+
+        }
+        else
+        {
+            curTime -= Time.deltaTime;
+        }
     }
 }
