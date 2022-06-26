@@ -77,7 +77,15 @@ public class PlayerMain : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.LeftShift))
         {
-            moveCoff = speed;
+
+            if (isGrounded == false)
+            {
+                moveCoff = 200f;
+            }
+            else
+            {
+                moveCoff = speed;
+            }
         }
         else
         {
@@ -135,6 +143,12 @@ public class PlayerMain : MonoBehaviour
         }
 
         jumpCount--;
+        if(jumpCount == 0)
+        {
+            rb2d.velocity = new Vector2(rb2d.velocity.x, jumpCoff);
+            animator.SetTrigger("Jump_two");
+            return;
+        }
         rb2d.velocity = new Vector2(rb2d.velocity.x, jumpCoff);
         animator.SetTrigger("Jump");
     }
