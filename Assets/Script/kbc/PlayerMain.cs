@@ -170,7 +170,7 @@ public class PlayerMain : MonoBehaviour
 
         if (curTime <= 0)
         {
-            if (Input.GetKey(KeyCode.Z))
+            if (Input.GetMouseButtonDown(0))
             {
                 animator.SetTrigger("Attack");
                 curTime = coolTime;
