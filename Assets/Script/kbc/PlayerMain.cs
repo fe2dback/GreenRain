@@ -21,12 +21,15 @@ public class PlayerMain : MonoBehaviour
 
     private float curTime;
     private float coolTime;
+
+    Transform pos;
     
     void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
         animator = transform.Find("Sprite").GetComponent<Animator>();
         check = transform.Find("Check");
+        pos = transform.Find("AttackCollider");
 
         xAxis = 0;
         //isJumped = false;
@@ -165,14 +168,21 @@ public class PlayerMain : MonoBehaviour
         }
 
     }
-    private void playerAttack()
+    void playerAttack()
     {
 
         if (curTime <= 0)
         {
             if (Input.GetKey(KeyCode.Z))
             {
+                Collider2D[] c2ds1 = Physics2D.OverlapBoxAll(pos.position, new Vector2(2, 3), 0);
+                foreach(Collider2D c2d1 in c2ds1)
+                {
+                    Debug.Log(c2d1.tag);
+                }
+                
                 animator.SetTrigger("Attack");
+
                 curTime = coolTime;
             }
 
@@ -182,4 +192,6 @@ public class PlayerMain : MonoBehaviour
             curTime -= Time.deltaTime;
         }
     }
+
+    
 }
