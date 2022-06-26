@@ -29,7 +29,7 @@ public class PlayerMain : MonoBehaviour
         rb2d = GetComponent<Rigidbody2D>();
         animator = transform.Find("Sprite").GetComponent<Animator>();
         check = transform.Find("Check");
-        pos = transform.Find("AttackCollider");
+        pos = transform.Find("AttackCheck");
 
         xAxis = 0;
         //isJumped = false;
@@ -64,7 +64,7 @@ public class PlayerMain : MonoBehaviour
         isGroundedPrev = isGrounded;
         isGrounded = false;
   
-    Collider2D[] c2ds = Physics2D.OverlapBoxAll(check.position, new Vector2(2, 0.1f), 0);
+        Collider2D[] c2ds = Physics2D.OverlapBoxAll(check.position, new Vector2(2, 0.1f), 0);
         foreach(Collider2D c2d in c2ds)
         {
             if(c2d.gameObject.layer == 7)
@@ -125,7 +125,6 @@ public class PlayerMain : MonoBehaviour
         ActionMove();
         ActionJump();
         playerAttack();
-        
     }
 
     private void ActionMove()
@@ -178,7 +177,11 @@ public class PlayerMain : MonoBehaviour
                 Collider2D[] c2ds1 = Physics2D.OverlapBoxAll(pos.position, new Vector2(2, 3), 0);
                 foreach(Collider2D c2d1 in c2ds1)
                 {
-                    Debug.Log(c2d1.tag);
+                    
+                    
+                     Debug.Log(c2d1.tag);
+                    
+                    
                 }
                 
                 animator.SetTrigger("Attack");
@@ -192,6 +195,5 @@ public class PlayerMain : MonoBehaviour
             curTime -= Time.deltaTime;
         }
     }
-
     
 }
