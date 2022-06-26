@@ -174,25 +174,19 @@ public class test_fe : MonoBehaviour
         {
             return;
         }
-
-        if (Input.GetButtonDown("Jump") == false)
+        else if (Input.GetButtonDown("Jump") == false)
         {
             return;
         }
-        if (jumpCount == 2)
+
+        jumpCount--;
+        if (jumpCount == 0)
         {
-            jumpCount--;
-            rb2d.velocity = new Vector2(rb2d.velocity.x, jumpCoff);
-            animator.SetTrigger("Jump");
-            Debug.Log(jumpCount);
-        }
-        else if(jumpCount == 1)
-        {
-            jumpCount--;
             rb2d.velocity = new Vector2(rb2d.velocity.x, jumpCoff);
             animator.SetTrigger("Jump_two");
-            Debug.Log(jumpCount);
+            return;
         }
-        
+        rb2d.velocity = new Vector2(rb2d.velocity.x, jumpCoff);
+        animator.SetTrigger("Jump");
     }
 }
