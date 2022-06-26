@@ -8,14 +8,15 @@ public class test_fe : MonoBehaviour
     private Animator animator;
     private Transform check;
     private Transform interaction;
+    private Transform pos;
 
     private float xAxis;
     //private bool isJumped;
     private int jumpCount;
 
     private float jumpCoff;
-    private float moveCoff;
-    private float speed;
+    public float moveCoff;
+    public float speed;
 
     private bool isGrounded;
     private bool isGroundedPrev;
@@ -24,27 +25,35 @@ public class test_fe : MonoBehaviour
     private bool checkinteraction;
     public static bool interactionhas;
 
+    private float curTime;
+    private float coolTime;
+
     void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
         animator = transform.Find("Sprite").GetComponent<Animator>();
         check = transform.Find("Check");
         interaction = transform.Find("Interaction");
+        pos = transform.Find("AttackCheck");
 
         xAxis = 0;
-        //isJumped = false;
         jumpCount = 2;
 
-
+        //movement
         jumpCoff = 35;
         moveCoff = 200f;
         speed = 400f;
 
+        //check
         isGrounded = false;
         isGroundedPrev = false;
         isinteraction = false;
         checkinteraction = false;
         interactionhas = false;
+
+        //editTime
+        curTime = 0;
+        coolTime = 0.5f;
     }
 
     private void FixedUpdate()
@@ -91,12 +100,14 @@ public class test_fe : MonoBehaviour
     {
         isGroundedPrev = isGrounded;
         isGrounded = false;
+
         Collider2D[] c2ds = Physics2D.OverlapBoxAll(check.position, new Vector2(2, 0.1f), 0);
         foreach (Collider2D c2d in c2ds)
         {
             if (c2d.gameObject.layer == 7)
             {
                 isGrounded = true;
+                
                 break;
             }
         }
@@ -108,6 +119,7 @@ public class test_fe : MonoBehaviour
         {
             jumpCount = 2;
             animator.SetTrigger("Idle");
+
         }
     }
 
@@ -115,7 +127,7 @@ public class test_fe : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.LeftShift))
         {
-            
+            animator.SetBool("Run", true);
             if (isGrounded == false)
             {
                 moveCoff = 200f;
@@ -128,6 +140,7 @@ public class test_fe : MonoBehaviour
         else
         {
             moveCoff = 200f;
+            animator.SetBool("Run", false);
         }
         rb2d.AddForce(new Vector2(xAxis * moveCoff, 0));
 
@@ -151,6 +164,7 @@ public class test_fe : MonoBehaviour
     {
         ActionMove();
         ActionJump();
+        playerAttack();
     }
 
     private void ActionMove()
@@ -161,6 +175,7 @@ public class test_fe : MonoBehaviour
         {
             xAxis = 0;
             animator.SetBool("IsWalk", false);
+            animator.SetBool("Run", false);
         }
 
         else
@@ -180,14 +195,51 @@ public class test_fe : MonoBehaviour
             return;
         }
 
-        jumpCount--;
-        if (jumpCount == 0)
+        
+        if (jumpCount == 2)
+        {
+            rb2d.velocity = new Vector2(rb2d.velocity.x, jumpCoff);
+            animator.SetTrigger("Jump");
+            jumpCount = 1;
+        }
+        else if (jumpCount == 1)
         {
             rb2d.velocity = new Vector2(rb2d.velocity.x, jumpCoff);
             animator.SetTrigger("Jump_two");
-            return;
+            jumpCount = 0;
+            
         }
-        rb2d.velocity = new Vector2(rb2d.velocity.x, jumpCoff);
-        animator.SetTrigger("Jump");
+
+        
+
+    }
+
+    void playerAttack()
+    {
+
+        if (curTime <= 0)
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+                Collider2D[] c2ds1 = Physics2D.OverlapBoxAll(pos.position, new Vector2(2, 3), 0);
+                foreach (Collider2D c2d1 in c2ds1)
+                {
+
+
+                    Debug.Log(c2d1.tag);
+
+
+                }
+
+                animator.SetTrigger("Attack");
+
+                curTime = coolTime;
+            }
+
+        }
+        else
+        {
+            curTime -= Time.deltaTime;
+        }
     }
 }

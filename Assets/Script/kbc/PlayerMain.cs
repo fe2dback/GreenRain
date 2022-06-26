@@ -86,22 +86,28 @@ public class PlayerMain : MonoBehaviour
 
     private void SetVelocity()
     {
+
         if (Input.GetKey(KeyCode.LeftShift))
         {
-
+            animator.SetBool("Run", true);
             if (isGrounded == false)
             {
                 moveCoff = 200f;
+                
             }
             else
             {
                 moveCoff = speed;
             }
         }
+        
         else
         {
             moveCoff = 200f;
+            animator.SetBool("Run", false);
         }
+
+
         rb2d.AddForce(new Vector2(xAxis * moveCoff, 0));
 
         float x = Mathf.Clamp(rb2d.velocity.x, -6, 6);
