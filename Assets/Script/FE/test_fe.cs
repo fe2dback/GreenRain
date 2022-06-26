@@ -19,6 +19,7 @@ public class test_fe : MonoBehaviour
 
     private bool isGrounded;
     private bool isGroundedPrev;
+
     private bool isinteraction;
     private bool checkinteraction;
     public static bool interactionhas;

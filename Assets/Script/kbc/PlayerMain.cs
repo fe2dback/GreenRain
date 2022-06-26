@@ -173,7 +173,7 @@ public class PlayerMain : MonoBehaviour
 
         if (curTime <= 0)
         {
-            if (Input.GetKey(KeyCode.Z))
+            if (Input.GetMouseButtonDown(0))
             {
                 Collider2D[] c2ds1 = Physics2D.OverlapBoxAll(pos.position, new Vector2(2, 3), 0);
                 foreach(Collider2D c2d1 in c2ds1)
