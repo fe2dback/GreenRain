@@ -36,10 +36,11 @@ public class PlayerMain : MonoBehaviour
     public static bool hit;
 
     public float isRight; // 플레이어가 바로보든 방향 1= 오른쪽, -1는 왼쪽
-    private bool isWall;
-    public float slidingSpeed;
 
+    public bool isWall;
+    public float slidingSpeed;
     public float wallJumpPower;
+    public bool isWallJump;
 
     
     void Start()
@@ -66,6 +67,7 @@ public class PlayerMain : MonoBehaviour
 
         hit = false;
         isRight = 1;
+        isWallJump = false;
 
         //isAttacked = false;
         //isAttackedPrev = false;
@@ -85,20 +87,33 @@ public class PlayerMain : MonoBehaviour
 
     private void WallSliding()
     {
-        if(isWall == true)
+        if(isWall)
         {
+            jumpCount--;
+            isWallJump = false;
             rb2d.velocity = new Vector2(rb2d.velocity.x, rb2d.velocity.y * slidingSpeed);
 
             if(Input.GetAxis("Jump") != 0)
             {
-                rb2d.velocity = new Vector2(-isRight * wallJumpPower, 0.9f * wallJumpPower);
+                isWallJump = true;
+                Invoke("FreezX", 1);
+                rb2d.velocity = new Vector2(-transform.localScale.x * wallJumpPower, 0.5f * wallJumpPower);
+                //animator.SetTrigger("Jump");
+                FlipPlayer();
             }
         }
     }
+    
+    void FreezX()
+    {
+        isWallJump = false;
+    }
+    
     private void FlipPlayer()
     {
-        transform.eulerAngles = new Vector3(0, Mathf.Abs(transform.eulerAngles.y - 180), 0);
-        isRight = isRight * -1;
+        //transform.eulerAngles = new Vector3(0, Mathf.Abs(transform.eulerAngles.y - 180), 0);
+        //isRight = isRight * -1;
+        transform.localScale = new Vector3(transform.localScale.x * -1, 1, 1);
     }
 
     private void isCheckGrounded()
@@ -128,6 +143,7 @@ public class PlayerMain : MonoBehaviour
 
     private void SetVelocity()
     {
+        
 
         if (Input.GetKey(KeyCode.LeftShift))
         {
@@ -160,11 +176,17 @@ public class PlayerMain : MonoBehaviour
 
     private void SetLocalScale()
     {
-        
-        if(xAxis == 0)
+        if (isWallJump == true)
+        {
+            return;
+        }
+
+        if (xAxis == 0)
         {
             return;   
         }
+
+        FlipPlayer();
         transform.localScale = new Vector3(xAxis > 0 ? 1 : -1, 1, 1);
     }
 
@@ -186,6 +208,9 @@ public class PlayerMain : MonoBehaviour
         }
         */
 
+        if (isWallJump == true)
+            return;
+
         xAxis = Input.GetAxis("Horizontal");
 
         if(Mathf.Abs(xAxis) < 0.1f)
@@ -202,6 +227,7 @@ public class PlayerMain : MonoBehaviour
 
     private void ActionJump()
     {
+        
         if(jumpCount == 0)
         {
             return;
@@ -260,7 +286,7 @@ public class PlayerMain : MonoBehaviour
         Gizmos.DrawWireCube(pos.position, boxSize);
 
         Gizmos.color = Color.blue;
-        Gizmos.DrawRay(WallCheck.position, Vector2.right * isRight * wallCheckDistance);
+        Gizmos.DrawRay(WallCheck.position, Vector2.right * transform.localScale.x * wallCheckDistance);
     }
 
     public void PlayerDamage(int damage)
@@ -283,7 +309,7 @@ public class PlayerMain : MonoBehaviour
 
     private void WallJumpCheck()
     {
-        isWall = Physics2D.Raycast(WallCheck.position, Vector2.right * isRight, wallCheckDistance, w_Layer);
+        isWall = Physics2D.Raycast(WallCheck.position, Vector2.right * transform.localScale.x, wallCheckDistance, w_Layer);
     }
 
     
