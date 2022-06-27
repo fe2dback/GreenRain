@@ -170,7 +170,7 @@ public class PlayerMain : MonoBehaviour
 
         float x = Mathf.Clamp(rb2d.velocity.x, -6, 6);
         float y = Mathf.Clamp(rb2d.velocity.y, -35, 35);
-
+        
         rb2d.velocity = new Vector2(x, y);
     }
 
@@ -305,6 +305,7 @@ public class PlayerMain : MonoBehaviour
         else
         {
             rb2d.velocity += new Vector2(-200f, y);
+            hit = false;
         }
     }
 
