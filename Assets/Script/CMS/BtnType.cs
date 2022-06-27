@@ -1,16 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
 
 public class BtnType : MonoBehaviour
 {
+    
     public BTNType currentType;
     public void OnBtnClick()
     {
         switch(currentType)
         {
             case BTNType.NewGame:
-                Debug.Log("게임시작");
+                SceneManager.LoadScene("SampleScene");
                 break;
 
             case BTNType.Option:
@@ -22,7 +25,8 @@ public class BtnType : MonoBehaviour
                 break;
 
             case BTNType.Quit:
-                Debug.Log("게임종료");
+                Application.Quit();
+                UnityEditor.EditorApplication.isPlaying = false;
                 break;
         }
     }
