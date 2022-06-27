@@ -255,7 +255,7 @@ public class PlayerMain : MonoBehaviour
 
         if (curTime <= 0)
         {
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonDown(0) && jumpCount == 2)
             {
                 Collider2D[] c2ds1 = Physics2D.OverlapBoxAll(pos.position, boxSize, 0);
                 foreach(Collider2D c2d1 in c2ds1)
@@ -294,16 +294,17 @@ public class PlayerMain : MonoBehaviour
         hp -= damage;
         hit = true;
 
+
+        float x = rb2d.velocity.x;
+        float y = rb2d.velocity.y;
+
         if (hp <= 0)
         {
             Debug.Log("Player Dead");
         }
         else
         {
-            float x = rb2d.velocity.x;
-            float y = rb2d.velocity.y;
-
-            rb2d.velocity += new Vector2(-20, y);
+            rb2d.velocity += new Vector2(-200f, y);
         }
     }
 
