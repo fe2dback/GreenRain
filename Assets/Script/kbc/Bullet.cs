@@ -7,11 +7,13 @@ public class Bullet : MonoBehaviour
     public float speed;
     public float distance;
     public LayerMask isLayer;
+    private Transform pos;
 
     // Start is called before the first frame update
     void Start()
     {
         Invoke("DestroyBullet", 2);
+        pos = GetComponent<Transform>();
     }
 
     // Update is called once per frame
@@ -22,7 +24,9 @@ public class Bullet : MonoBehaviour
         {
             if(raycast.collider.tag == "Player")
             {
+                raycast.collider.GetComponent<PlayerMain>().PlayerDamage(1);
                 Debug.Log("ÇÇ°Ý");
+           
             }
             DestroyBullet();
         }

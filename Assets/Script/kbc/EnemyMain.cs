@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class EnemyMain : MonoBehaviour
 {
-    Rigidbody2D rb2d;
-    Animator animator;
-    Transform check;
+    private Rigidbody2D rb2d1;
+    private Animator animator;
+    private Transform check;
     public int hp;
 
     public float distance;
@@ -23,11 +23,10 @@ public class EnemyMain : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        rb2d = GetComponent<Rigidbody2D>();
+        rb2d1 = GetComponent<Rigidbody2D>();
         animator = transform.Find("Sprite").GetComponent<Animator>();
         check = transform.Find("Check");
         pos = transform.Find("bullet");
-        hp = 100;
     }
 
     // Update is called once per frame
@@ -48,6 +47,7 @@ public class EnemyMain : MonoBehaviour
                 if(currentTime <= 0)
                 {
                     GameObject bulletCopy = Instantiate(bullet, pos.position, transform.rotation);
+                    animator.SetTrigger("Shoot");
 
                     currentTime = coolTime;
                 }
@@ -65,5 +65,23 @@ public class EnemyMain : MonoBehaviour
     public void TakeDamage(int damage)
     {
         hp -= damage;
+        //rb2d.velocity = Vector2.zero;
+        if(hp <= 0)
+        {
+            Debug.Log("Monster Dead");
+        }
+        else
+        {
+            if(transform.position.x > PlayerMain.rb2d.transform.position.x)
+            {
+                rb2d1.velocity = new Vector2(rb2d1.velocity.x + 20, 0);
+            }
+            else
+            {
+                rb2d1.velocity = new Vector2(rb2d1.velocity.x - 20, 0);
+            }
+        }
+        
+
     }
 }

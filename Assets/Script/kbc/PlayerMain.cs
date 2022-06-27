@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerMain : MonoBehaviour
 {
-    private Rigidbody2D rb2d;
+    public static Rigidbody2D rb2d;
     private Animator animator;
     private Transform check;
 
@@ -23,6 +23,13 @@ public class PlayerMain : MonoBehaviour
     public float coolTime;
 
     public Transform pos;
+    public Vector2 boxSize;
+
+    private bool isAttacked;
+    private bool isAttackedPrev;
+
+    public int hp;
+
     
     void Start()
     {
@@ -44,6 +51,9 @@ public class PlayerMain : MonoBehaviour
 
         curTime = 0;
         coolTime = 0.5f;
+
+        //isAttacked = false;
+        //isAttackedPrev = false;
     }
 
     private void FixedUpdate()
@@ -173,20 +183,25 @@ public class PlayerMain : MonoBehaviour
         }
 
     }
-    public void playerAttack()
+    private void  playerAttack()
     {
+        //isAttackedPrev = isAttacked;
+        //isAttacked = false;
 
         if (curTime <= 0)
         {
             if (Input.GetMouseButtonDown(0))
             {
-                Collider2D[] c2ds1 = Physics2D.OverlapBoxAll(pos.position, new Vector2(2, 3), 0);
+                Collider2D[] c2ds1 = Physics2D.OverlapBoxAll(pos.position, boxSize, 0);
                 foreach(Collider2D c2d1 in c2ds1)
                 {
 
                     if (c2d1.tag == "Enemy")
                     {
-                        //c2d1.GetComponent<EnemyMain>().TakeDamage(10);
+                        c2d1.GetComponent<EnemyMain>().TakeDamage(1);
+                        //isAttacked = true;
+                        
+                        //Debug.Log("10");
                     }
 
 
@@ -203,5 +218,31 @@ public class PlayerMain : MonoBehaviour
             curTime -= Time.deltaTime;
         }
     }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireCube(pos.position, boxSize);
+    }
+
+    public void PlayerDamage(int damage)
+    {
+        hp -= damage;
+
+        if (hp <= 0)
+        {
+            Debug.Log("Player Dead");
+        }
+        else
+        {
+            float x = rb2d.velocity.x;
+            float y = rb2d.velocity.y;
+
+            rb2d.velocity += new Vector2(-20, y);
+
+
+        }
+    }
+
     
 }
