@@ -29,6 +29,7 @@ public class PlayerMain : MonoBehaviour
     private bool isAttackedPrev;
 
     public int hp;
+    public static bool hit;
 
     
     void Start()
@@ -51,6 +52,8 @@ public class PlayerMain : MonoBehaviour
 
         curTime = 0;
         coolTime = 0.5f;
+
+        hit = false;
 
         //isAttacked = false;
         //isAttackedPrev = false;
@@ -128,6 +131,7 @@ public class PlayerMain : MonoBehaviour
 
     private void SetLocalScale()
     {
+        
         if(xAxis == 0)
         {
             return;   
@@ -145,6 +149,13 @@ public class PlayerMain : MonoBehaviour
 
     private void ActionMove()
     {
+        /*
+        if(hit == true)
+        {
+            return;
+        }
+        */
+
         xAxis = Input.GetAxis("Horizontal");
 
         if(Mathf.Abs(xAxis) < 0.1f)
@@ -185,8 +196,6 @@ public class PlayerMain : MonoBehaviour
     }
     private void  playerAttack()
     {
-        //isAttackedPrev = isAttacked;
-        //isAttacked = false;
 
         if (curTime <= 0)
         {
@@ -199,14 +208,10 @@ public class PlayerMain : MonoBehaviour
                     if (c2d1.tag == "Enemy")
                     {
                         c2d1.GetComponent<EnemyMain>().TakeDamage(1);
-                        //isAttacked = true;
-                        
+                                
                         //Debug.Log("10");
                     }
-
-
-                }
-                
+                }             
                 animator.SetTrigger("Attack");
 
                 curTime = coolTime;
@@ -228,6 +233,7 @@ public class PlayerMain : MonoBehaviour
     public void PlayerDamage(int damage)
     {
         hp -= damage;
+        hit = true;
 
         if (hp <= 0)
         {
@@ -239,8 +245,6 @@ public class PlayerMain : MonoBehaviour
             float y = rb2d.velocity.y;
 
             rb2d.velocity += new Vector2(-20, y);
-
-
         }
     }
 
