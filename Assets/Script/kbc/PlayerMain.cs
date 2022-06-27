@@ -7,6 +7,7 @@ public class PlayerMain : MonoBehaviour
     public static Rigidbody2D rb2d;
     private Animator animator;
     private Transform check;
+    public Transform WallCheck;
 
     private float xAxis;
     //private bool isJumped;
@@ -28,8 +29,17 @@ public class PlayerMain : MonoBehaviour
     private bool isAttacked;
     private bool isAttackedPrev;
 
+    public float wallCheckDistance;
+    public LayerMask w_Layer;
+
     public int hp;
     public static bool hit;
+
+    public float isRight; // 플레이어가 바로보든 방향 1= 오른쪽, -1는 왼쪽
+    private bool isWall;
+    public float slidingSpeed;
+
+    public float wallJumpPower;
 
     
     void Start()
@@ -37,6 +47,7 @@ public class PlayerMain : MonoBehaviour
         rb2d = GetComponent<Rigidbody2D>();
         animator = transform.Find("Sprite").GetComponent<Animator>();
         check = transform.Find("Check");
+        //WallCheck = transform.Find("WallCheck");
         //pos = transform.Find("AttackCheck");
 
         xAxis = 0;
@@ -54,6 +65,7 @@ public class PlayerMain : MonoBehaviour
         coolTime = 0.5f;
 
         hit = false;
+        isRight = 1;
 
         //isAttacked = false;
         //isAttackedPrev = false;
@@ -67,10 +79,27 @@ public class PlayerMain : MonoBehaviour
         SetLocalScale();
         isCheckGrounded();
         isCheckLanded();
+        WallSliding();
         
     }
 
-    
+    private void WallSliding()
+    {
+        if(isWall == true)
+        {
+            rb2d.velocity = new Vector2(rb2d.velocity.x, rb2d.velocity.y * slidingSpeed);
+
+            if(Input.GetAxis("Jump") != 0)
+            {
+                rb2d.velocity = new Vector2(-isRight * wallJumpPower, 0.9f * wallJumpPower);
+            }
+        }
+    }
+    private void FlipPlayer()
+    {
+        transform.eulerAngles = new Vector3(0, Mathf.Abs(transform.eulerAngles.y - 180), 0);
+        isRight = isRight * -1;
+    }
 
     private void isCheckGrounded()
     {
@@ -145,6 +174,7 @@ public class PlayerMain : MonoBehaviour
         ActionMove();
         ActionJump();
         playerAttack();
+        WallJumpCheck();
     }
 
     private void ActionMove()
@@ -228,6 +258,9 @@ public class PlayerMain : MonoBehaviour
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireCube(pos.position, boxSize);
+
+        Gizmos.color = Color.blue;
+        Gizmos.DrawRay(WallCheck.position, Vector2.right * isRight * wallCheckDistance);
     }
 
     public void PlayerDamage(int damage)
@@ -246,6 +279,11 @@ public class PlayerMain : MonoBehaviour
 
             rb2d.velocity += new Vector2(-20, y);
         }
+    }
+
+    private void WallJumpCheck()
+    {
+        isWall = Physics2D.Raycast(WallCheck.position, Vector2.right * isRight, wallCheckDistance, w_Layer);
     }
 
     
