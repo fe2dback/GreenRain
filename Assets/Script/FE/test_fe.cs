@@ -225,10 +225,9 @@ public class test_fe : MonoBehaviour
                 foreach (Collider2D c2d1 in c2ds1)
                 {
 
-
+                    
                     Debug.Log(c2d1.tag);
-
-
+                    
                 }
 
                 animator.SetTrigger("Attack");

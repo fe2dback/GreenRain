@@ -20,16 +20,16 @@ public class PlayerMain : MonoBehaviour
     private bool isGroundedPrev;
 
     private float curTime;
-    private float coolTime;
+    public float coolTime;
 
-    Transform pos;
+    public Transform pos;
     
     void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
         animator = transform.Find("Sprite").GetComponent<Animator>();
         check = transform.Find("Check");
-        pos = transform.Find("AttackCheck");
+        //pos = transform.Find("AttackCheck");
 
         xAxis = 0;
         //isJumped = false;
@@ -173,7 +173,7 @@ public class PlayerMain : MonoBehaviour
         }
 
     }
-    void playerAttack()
+    public void playerAttack()
     {
 
         if (curTime <= 0)
@@ -183,11 +183,13 @@ public class PlayerMain : MonoBehaviour
                 Collider2D[] c2ds1 = Physics2D.OverlapBoxAll(pos.position, new Vector2(2, 3), 0);
                 foreach(Collider2D c2d1 in c2ds1)
                 {
-                    
-                    
-                     Debug.Log(c2d1.tag);
-                    
-                    
+
+                    if (c2d1.tag == "Enemy")
+                    {
+                        //c2d1.GetComponent<EnemyMain>().TakeDamage(10);
+                    }
+
+
                 }
                 
                 animator.SetTrigger("Attack");
