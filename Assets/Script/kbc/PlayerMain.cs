@@ -8,6 +8,7 @@ public class PlayerMain : MonoBehaviour
     private Animator animator;
     private Transform check;
     public Transform WallCheck;
+    private Transform interaction;
 
     private float xAxis;
     //private bool isJumped;
@@ -42,12 +43,19 @@ public class PlayerMain : MonoBehaviour
     public float wallJumpPower;
     public bool isWallJump;
 
-    
+    private bool isinteraction;
+    private bool checkinteraction;
+    public static bool interactionhas;
+
+    public bool isControl;
+
+
     void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
         animator = transform.Find("Sprite").GetComponent<Animator>();
         check = transform.Find("Check");
+        interaction = transform.Find("Interaction");
         //WallCheck = transform.Find("WallCheck");
         //pos = transform.Find("AttackCheck");
 
@@ -69,6 +77,12 @@ public class PlayerMain : MonoBehaviour
         isRight = 1;
         isWallJump = false;
 
+        isinteraction = false;
+        checkinteraction = false;
+        interactionhas = false;
+
+        isControl = true;
+
         //isAttacked = false;
         //isAttackedPrev = false;
     }
@@ -82,7 +96,35 @@ public class PlayerMain : MonoBehaviour
         isCheckGrounded();
         isCheckLanded();
         WallSliding();
+        isCheckInteraction();
+        CheckInteraction();
         
+    }
+
+    private void isCheckInteraction()
+    {
+        checkinteraction = isinteraction;
+        isinteraction = false;
+        Collider2D[] ctd = Physics2D.OverlapBoxAll(interaction.position, new Vector2(3, 3), 0);
+        foreach (Collider2D ctdd in ctd)
+        {
+            if (ctdd.gameObject.layer == 9)
+            {
+                isinteraction = true;
+                break;
+            }
+
+        }
+    }
+    private void CheckInteraction()
+    {
+        if (checkinteraction == true)
+        {
+            if (Input.GetKey(KeyCode.F))
+            {
+                interactionhas = true;
+            }
+        }
     }
 
     private void WallSliding()
@@ -210,18 +252,20 @@ public class PlayerMain : MonoBehaviour
 
         if (isWallJump == true)
             return;
-
-        xAxis = Input.GetAxis("Horizontal");
-
-        if(Mathf.Abs(xAxis) < 0.1f)
+        if(isControl == true)
         {
-            xAxis = 0;
-            animator.SetBool("IsWalk", false);
-        }
+            xAxis = Input.GetAxis("Horizontal");
 
-        else
-        {
-            animator.SetBool("IsWalk", true);
+            if (Mathf.Abs(xAxis) < 0.1f)
+            {
+                xAxis = 0;
+                animator.SetBool("IsWalk", false);
+            }
+
+            else
+            {
+                animator.SetBool("IsWalk", true);
+            }
         }
     }
 
@@ -305,6 +349,7 @@ public class PlayerMain : MonoBehaviour
         else
         {
             rb2d.velocity += new Vector2(-200f, y);
+            animator.SetTrigger("Hit");
             hit = false;
         }
     }

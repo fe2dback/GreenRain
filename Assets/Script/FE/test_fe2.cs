@@ -29,13 +29,13 @@ public class test_fe2 : MonoBehaviour
     {
         
 
-        if (test_fe.interactionhas == true)
+        if (PlayerMain.interactionhas == true)
         {
             alp += Time.deltaTime;
             if(alp > 2f)
             {
                 Debug.Log("hello"); //확인용
-                test_fe.interactionhas = false;
+                PlayerMain.interactionhas = false;
                 alp = 0;
                 render.color = Color.red;// 확인용
             }
