@@ -98,7 +98,7 @@ public class PlayerMain : MonoBehaviour
         WallSliding();
         isCheckInteraction();
         CheckInteraction();
-        
+
     }
 
     private void isCheckInteraction()
@@ -254,6 +254,7 @@ public class PlayerMain : MonoBehaviour
         ActionJump();
         playerAttack();
         WallJumpCheck();
+        
     }
 
     private void ActionMove()
@@ -388,6 +389,7 @@ public class PlayerMain : MonoBehaviour
     {
         isWall = Physics2D.Raycast(WallCheck.position, Vector2.right * transform.localScale.x, wallCheckDistance, w_Layer);
     }
+
 
     
 }
