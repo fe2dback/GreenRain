@@ -27,7 +27,7 @@ public class GateMain : MonoBehaviour
         yield return null;
         targetObj.GetComponent<PlayerMain>().isControl = false;
 
-        yield return new WaitForSeconds(1);
+        yield return new WaitForFixedUpdate();
         targetObj.transform.position = toObj.transform.position;
 
         yield return new WaitForSeconds(1);

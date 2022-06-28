@@ -185,51 +185,66 @@ public class PlayerMain : MonoBehaviour
 
     private void SetVelocity()
     {
-        
-
-        if (Input.GetKey(KeyCode.LeftShift))
+        if(isControl == true)
         {
-            animator.SetBool("Run", true);
-            if (isGrounded == false)
+            if (Input.GetKey(KeyCode.LeftShift))
             {
-                moveCoff = 200f;
-                
+                animator.SetBool("Run", true);
+                if (isGrounded == false)
+                {
+                    moveCoff = 200f;
+                }
+                else
+                {
+                    moveCoff = speed;
+                }
             }
             else
             {
-                moveCoff = speed;
+                moveCoff = 200f;
+                animator.SetBool("Run", false);
             }
+
+
+            rb2d.AddForce(new Vector2(xAxis * moveCoff, 0));
+
+            float x = Mathf.Clamp(rb2d.velocity.x, -6, 6);
+            float y = Mathf.Clamp(rb2d.velocity.y, -35, 35);
+
+            rb2d.velocity = new Vector2(x, y);
+
         }
-        
         else
-        {
-            moveCoff = 200f;
-            animator.SetBool("Run", false);
-        }
-
-
-        rb2d.AddForce(new Vector2(xAxis * moveCoff, 0));
-
-        float x = Mathf.Clamp(rb2d.velocity.x, -6, 6);
-        float y = Mathf.Clamp(rb2d.velocity.y, -35, 35);
-        
-        rb2d.velocity = new Vector2(x, y);
-    }
-
-    private void SetLocalScale()
-    {
-        if (isWallJump == true)
         {
             return;
         }
 
-        if (xAxis == 0)
-        {
-            return;   
-        }
+       
+    }
 
-        FlipPlayer();
-        transform.localScale = new Vector3(xAxis > 0 ? 1 : -1, 1, 1);
+    private void SetLocalScale()
+    {
+        if(isControl == true)
+        {
+            if (isWallJump == true)
+            {
+                return;
+            }
+
+            if (xAxis == 0)
+            {
+                return;
+            }
+
+            FlipPlayer();
+            transform.localScale = new Vector3(xAxis > 0 ? 1 : -1, 1, 1);
+
+        }
+        else
+        {
+            return;
+        }
+        
     }
 
     
@@ -267,61 +282,76 @@ public class PlayerMain : MonoBehaviour
                 animator.SetBool("IsWalk", true);
             }
         }
+        
     }
 
     private void ActionJump()
     {
-        
-        if(jumpCount == 0)
+        if(isControl == true)
         {
-            return;
-        }
-        else if(Input.GetButtonDown("Jump") == false)
-        {
-            return;
-        }
+            if (jumpCount == 0)
+            {
+                return;
+            }
+            else if (Input.GetButtonDown("Jump") == false)
+            {
+                return;
+            }
 
-        jumpCount--;
-        if(jumpCount == 0)
-        {
-            rb2d.velocity = new Vector2(rb2d.velocity.x, jumpCoff);
-            animator.SetTrigger("Jump_two");
+            jumpCount--;
+            if (jumpCount == 0)
+            {
+                rb2d.velocity = new Vector2(rb2d.velocity.x, jumpCoff);
+                animator.SetTrigger("Jump_two");
+            }
+            else if (jumpCount == 1)
+            {
+                rb2d.velocity = new Vector2(rb2d.velocity.x, jumpCoff);
+                animator.SetTrigger("Jump");
+            }
+            else
+            {
+                return;
+            }
         }
-        else if(jumpCount == 1)
-        {
-            rb2d.velocity = new Vector2(rb2d.velocity.x, jumpCoff);
-            animator.SetTrigger("Jump");
-        }
+        
 
     }
     private void  playerAttack()
     {
-
-        if (curTime <= 0)
+        if(isControl == true)
         {
-            if (Input.GetMouseButtonDown(0) && jumpCount == 2)
+            if (curTime <= 0)
             {
-                Collider2D[] c2ds1 = Physics2D.OverlapBoxAll(pos.position, boxSize, 0);
-                foreach(Collider2D c2d1 in c2ds1)
+                if (Input.GetMouseButtonDown(0) && jumpCount == 2)
                 {
-
-                    if (c2d1.tag == "Enemy")
+                    Collider2D[] c2ds1 = Physics2D.OverlapBoxAll(pos.position, boxSize, 0);
+                    foreach (Collider2D c2d1 in c2ds1)
                     {
-                        c2d1.GetComponent<EnemyMain>().TakeDamage(1);
-                                
-                        //Debug.Log("10");
+
+                        if (c2d1.tag == "Enemy")
+                        {
+                            c2d1.GetComponent<EnemyMain>().TakeDamage(1);
+
+                            //Debug.Log("10");
+                        }
                     }
-                }             
-                animator.SetTrigger("Attack");
+                    animator.SetTrigger("Attack");
 
-                curTime = coolTime;
+                    curTime = coolTime;
+                }
+
             }
-
+            else
+            {
+                curTime -= Time.deltaTime;
+            }
         }
         else
         {
-            curTime -= Time.deltaTime;
+            return;
         }
+        
     }
 
     private void OnDrawGizmos()
