@@ -75,10 +75,12 @@ public class EnemyMain : MonoBehaviour
             if(transform.position.x > PlayerMain.rb2d.transform.position.x)
             {
                 rb2d1.velocity = new Vector2(rb2d1.velocity.x + 20, 0);
+                animator.SetTrigger("Hit");
             }
             else
             {
                 rb2d1.velocity = new Vector2(rb2d1.velocity.x - 20, 0);
+                animator.SetTrigger("Hit");
             }
         }
         
