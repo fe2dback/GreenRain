@@ -12,7 +12,7 @@ public class PlayerMain : MonoBehaviour
 
     private float xAxis;
     //private bool isJumped;
-    private int jumpCount;
+    public int jumpCount;
 
     private float jumpCoff;
     private float moveCoff;
@@ -131,7 +131,6 @@ public class PlayerMain : MonoBehaviour
     {
         if(isWall)
         {
-            jumpCount--;
             isWallJump = false;
             rb2d.velocity = new Vector2(rb2d.velocity.x, rb2d.velocity.y * slidingSpeed);
 
@@ -142,11 +141,12 @@ public class PlayerMain : MonoBehaviour
                 rb2d.velocity = new Vector2(-transform.localScale.x * wallJumpPower, 0.5f * wallJumpPower);
                 //animator.SetTrigger("Jump");
                 FlipPlayer();
+                jumpCount--;
             }
         }
     }
     
-    void FreezX()
+    private void FreezX()
     {
         isWallJump = false;
     }
@@ -267,7 +267,10 @@ public class PlayerMain : MonoBehaviour
         */
 
         if (isWallJump == true)
+        {
             return;
+        }
+            
         if(isControl == true)
         {
             xAxis = Input.GetAxis("Horizontal");
@@ -288,8 +291,10 @@ public class PlayerMain : MonoBehaviour
 
     private void ActionJump()
     {
+
         if(isControl == true)
         {
+           
             if (jumpCount == 0)
             {
                 return;
@@ -300,16 +305,16 @@ public class PlayerMain : MonoBehaviour
             }
 
             jumpCount--;
-            if (jumpCount == 0)
-            {
-                rb2d.velocity = new Vector2(rb2d.velocity.x, jumpCoff);
-                animator.SetTrigger("Jump_two");
-            }
-            else if (jumpCount == 1)
+            if (jumpCount == 1)
             {
                 rb2d.velocity = new Vector2(rb2d.velocity.x, jumpCoff);
                 animator.SetTrigger("Jump");
             }
+            else if(jumpCount == 0)
+            {
+                rb2d.velocity = new Vector2(rb2d.velocity.x, jumpCoff);
+                animator.SetTrigger("Jump_two");
+            }   
             else
             {
                 return;
@@ -320,6 +325,7 @@ public class PlayerMain : MonoBehaviour
     }
     private void  playerAttack()
     {
+
         if(isControl == true)
         {
             if (curTime <= 0)
@@ -383,16 +389,27 @@ public class PlayerMain : MonoBehaviour
         }
         else
         {
-            rb2d.velocity += new Vector2(-200f, y);
+            rb2d.velocity += new Vector2(-20f, y);
             animator.SetTrigger("Hit");
             hit = false;
+            StartCoroutine(hittingnomove());
         }
+        
     }
 
     private void WallJumpCheck()
     {
+        
         isWall = Physics2D.Raycast(WallCheck.position, Vector2.right * transform.localScale.x, wallCheckDistance, w_Layer);
     }
+
+    private IEnumerator hittingnomove()
+    {
+        isControl = false;
+        yield return new WaitForSeconds(0.5f);
+        isControl = true;
+    }
+
 
 
     
