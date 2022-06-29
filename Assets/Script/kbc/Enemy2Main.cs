@@ -9,6 +9,7 @@ public class Enemy2Main : MonoBehaviour
     private Transform check;
     public int hp;
 
+    
     public float distance;
     public LayerMask isLayer;
 
@@ -38,7 +39,7 @@ public class Enemy2Main : MonoBehaviour
         animator = transform.Find("Sprite").GetComponent<Animator>();
         check = transform.Find("Check");
         //StartPosition = transform.position;
-
+        
         isControl = true;
     }
 
@@ -46,8 +47,12 @@ public class Enemy2Main : MonoBehaviour
     {
         Enemy2Move();
         deadTime();
+        
     }
 
+    
+
+    
     private void Enemy2Move()
     {
         if(isControl == true)

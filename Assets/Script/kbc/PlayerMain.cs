@@ -69,7 +69,7 @@ public class PlayerMain : MonoBehaviour
         jumpCount = 2;
         
 
-        jumpCoff = 35;
+        jumpCoff = 35f;
         moveCoff = 200f;
         speed = 400f;
         isGrounded = false;
@@ -110,6 +110,8 @@ public class PlayerMain : MonoBehaviour
 
     }
 
+    
+
     private void isCheckInteraction()
     {
         checkinteraction = isinteraction;
@@ -146,6 +148,7 @@ public class PlayerMain : MonoBehaviour
             if(Input.GetAxis("Jump") != 0)
             {
                 isWallJump = true;
+
                 Invoke("FreezX", 1);
                 rb2d.velocity = new Vector2(-transform.localScale.x * wallJumpPower, 0.5f * wallJumpPower);
                 //animator.SetTrigger("Jump");
@@ -178,6 +181,22 @@ public class PlayerMain : MonoBehaviour
             if(c2d.gameObject.layer == 7)
             {
                 isGrounded = true;
+                break;
+            }
+            else if(c2d.gameObject.layer == 11)//enemy2
+            {
+                PlayerDamage(1);
+                isGrounded = true;
+                animator.SetTrigger("Idle");
+                jumpCount = 2;
+                break;
+            }
+            else if (c2d.gameObject.layer == 8)//enemy
+            {
+                PlayerDamage(1);
+                isGrounded = true;
+                animator.SetTrigger("Idle");
+                jumpCount = 2;
                 break;
             }
         }
@@ -216,15 +235,21 @@ public class PlayerMain : MonoBehaviour
 
 
             rb2d.AddForce(new Vector2(xAxis * moveCoff, 0));
-
+            
             float x = Mathf.Clamp(rb2d.velocity.x, -6, 6);
             float y = Mathf.Clamp(rb2d.velocity.y, -35, 35);
+
 
             rb2d.velocity = new Vector2(x, y);
 
         }
         else
         {
+            float x = rb2d.velocity.x;
+            float y = Mathf.Clamp(rb2d.velocity.y, -35, 35);
+
+
+            rb2d.velocity = new Vector2(x, y);
             return;
         }
 
@@ -303,7 +328,7 @@ public class PlayerMain : MonoBehaviour
 
         if(isControl == true)
         {
-           
+            jumpCoff = 35f;
             if (jumpCount == 0)
             {
                 return;
@@ -312,23 +337,32 @@ public class PlayerMain : MonoBehaviour
             {
                 return;
             }
-
+            
             jumpCount--;
+            
+            
             if (jumpCount == 1)
             {
                 rb2d.velocity = new Vector2(rb2d.velocity.x, jumpCoff);
                 animator.SetTrigger("Jump");
+                
             }
-            else if(jumpCount == 0)
+            else if (jumpCount == 0)
             {
                 rb2d.velocity = new Vector2(rb2d.velocity.x, jumpCoff);
                 animator.SetTrigger("Jump_two");
-            }   
+            }
             else
             {
                 return;
             }
+
+
+            
+            
+            
         }
+        
         
 
     }
@@ -352,10 +386,10 @@ public class PlayerMain : MonoBehaviour
                             if(criCheck == true)
                             {
                                 criDmg = 2;
-                                c2d1.GetComponent<EnemyMain>().TakeDamage(Random.Range(100 * (int)criDmg, 199 * (int)criDmg));
+                                c2d1.GetComponent<EnemyMain>().TakeDamage(Random.Range(200 * (int)criDmg, 299 * (int)criDmg));
                                 continue;
                             }
-                            c2d1.GetComponent<EnemyMain>().TakeDamage(Random.Range(100,199));
+                            c2d1.GetComponent<EnemyMain>().TakeDamage(Random.Range(200,299));
 
                             //Debug.Log("10");
                         }
@@ -364,10 +398,10 @@ public class PlayerMain : MonoBehaviour
                             if (criCheck == true)
                             {
                                 criDmg = 2;
-                                c2d1.GetComponent<Enemy2Main>().TakeDamage(Random.Range(200 * (int)criDmg, 299 * (int)criDmg));
+                                c2d1.GetComponent<Enemy2Main>().TakeDamage(Random.Range(100 * (int)criDmg, 199 * (int)criDmg));
                                 continue;
                             }
-                            c2d1.GetComponent<Enemy2Main>().TakeDamage(Random.Range(200,299));
+                            c2d1.GetComponent<Enemy2Main>().TakeDamage(Random.Range(100,199));
                         }
                     }
                     animator.SetTrigger("Attack");
@@ -403,15 +437,18 @@ public class PlayerMain : MonoBehaviour
         hit = true;
 
 
-        float x = rb2d.velocity.x;
-        float y = rb2d.velocity.y;
-
         if (hp <= 0)
         {
             Debug.Log("Player Dead");
         }
         else
+
         {
+            float x = Mathf.Clamp(rb2d.velocity.x, -10, 10) ;
+            float y = rb2d.velocity.y;
+
+            rb2d.velocity = new Vector2(x, y);
+
             rb2d.velocity += new Vector2(-20f, y);
             animator.SetTrigger("Hit");
             hit = false;
@@ -424,14 +461,22 @@ public class PlayerMain : MonoBehaviour
     {
         
         isWall = Physics2D.Raycast(WallCheck.position, Vector2.right * transform.localScale.x, wallCheckDistance, w_Layer);
+        
     }
 
     private IEnumerator hittingnomove()
     {
         isControl = false;
+        if(isControl == false)
+        {
+            jumpCount = 2;
+        }
         yield return new WaitForSeconds(0.5f);
+        
         isControl = true;
     }
+
+    
 
     
 

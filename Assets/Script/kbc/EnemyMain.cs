@@ -9,6 +9,7 @@ public class EnemyMain : MonoBehaviour
     private Transform check;
     public int hp;
 
+    
     public float distance;
     public LayerMask isLayer;
 
@@ -35,6 +36,7 @@ public class EnemyMain : MonoBehaviour
         check = transform.Find("Check");
         pos = transform.Find("bullet");
         isControl = true;
+        
     }
 
     // Update is called once per frame
@@ -47,7 +49,10 @@ public class EnemyMain : MonoBehaviour
     {
         EnemyMove();
         deadTime();
+        
     }
+
+   
 
     private void EnemyMove()
     {
