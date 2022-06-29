@@ -24,6 +24,9 @@ public class EnemyMain : MonoBehaviour
     public float timePassed;
     private bool isControl;
 
+    public GameObject hudDamageText;
+    public Transform hudPos;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -78,6 +81,10 @@ public class EnemyMain : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
+        GameObject hudText = Instantiate(hudDamageText);
+        hudText.transform.position = hudPos.position;
+        hudText.GetComponent<DamageText>().damage = damage;
+
         hp -= damage;
         //rb2d.velocity = Vector2.zero;
         if(hp <= 0)

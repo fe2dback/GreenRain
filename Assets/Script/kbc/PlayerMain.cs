@@ -49,6 +49,11 @@ public class PlayerMain : MonoBehaviour
 
     public bool isControl;
 
+    public float criPer;
+    public float criDmg;
+    private bool criCheck;
+
+
 
     void Start()
     {
@@ -83,9 +88,13 @@ public class PlayerMain : MonoBehaviour
 
         isControl = true;
 
-        //isAttacked = false;
-        //isAttackedPrev = false;
-    }
+        criPer = 0;
+        criDmg = 0;
+        criCheck = false    ;
+
+    //isAttacked = false;
+    //isAttackedPrev = false;
+}
 
     private void FixedUpdate()
     {
@@ -335,16 +344,30 @@ public class PlayerMain : MonoBehaviour
                     Collider2D[] c2ds1 = Physics2D.OverlapBoxAll(pos.position, boxSize, 0);
                     foreach (Collider2D c2d1 in c2ds1)
                     {
+                        criPer = Random.Range(1, 101);
+                        criCheck = (0 == (int)criPer % 5);
 
                         if (c2d1.tag == "Enemy")
                         {
-                            c2d1.GetComponent<EnemyMain>().TakeDamage(1);
+                            if(criCheck == true)
+                            {
+                                criDmg = 2;
+                                c2d1.GetComponent<EnemyMain>().TakeDamage(Random.Range(100 * (int)criDmg, 199 * (int)criDmg));
+                                continue;
+                            }
+                            c2d1.GetComponent<EnemyMain>().TakeDamage(Random.Range(100,199));
 
                             //Debug.Log("10");
                         }
                         else if(c2d1.tag == "Enemy2")
                         {
-                            c2d1.GetComponent<Enemy2Main>().TakeDamage(1);
+                            if (criCheck == true)
+                            {
+                                criDmg = 2;
+                                c2d1.GetComponent<Enemy2Main>().TakeDamage(Random.Range(200 * (int)criDmg, 299 * (int)criDmg));
+                                continue;
+                            }
+                            c2d1.GetComponent<Enemy2Main>().TakeDamage(Random.Range(200,299));
                         }
                     }
                     animator.SetTrigger("Attack");
@@ -410,7 +433,7 @@ public class PlayerMain : MonoBehaviour
         isControl = true;
     }
 
-
+    
 
     
 }
