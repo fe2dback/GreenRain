@@ -336,6 +336,10 @@ public class PlayerMain : MonoBehaviour
 
                             //Debug.Log("10");
                         }
+                        else if(c2d1.tag == "Enemy2")
+                        {
+                            c2d1.GetComponent<Enemy2Main>().TakeDamage(1);
+                        }
                     }
                     animator.SetTrigger("Attack");
 
