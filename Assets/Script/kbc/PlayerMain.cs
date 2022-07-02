@@ -48,6 +48,7 @@ public class PlayerMain : MonoBehaviour
     public static bool interactionhas;
 
     public bool isControl;
+    public static bool CheckIsControl;
 
     public float criPer;
     public float criDmg;
@@ -58,6 +59,8 @@ public class PlayerMain : MonoBehaviour
 
     public float skillCoolTime;
     private float skillCurTime;
+
+    
 
 
 
@@ -100,6 +103,7 @@ public class PlayerMain : MonoBehaviour
 
         skillCurTime = 0;
 
+       
     //isAttacked = false;
     //isAttackedPrev = false;
 }
@@ -278,9 +282,10 @@ public class PlayerMain : MonoBehaviour
                 return;
             }
 
+            
             FlipPlayer();
             transform.localScale = new Vector3(xAxis > 0 ? 1 : -1, 1, 1);
-
+            
         }
         else
         {
@@ -518,10 +523,17 @@ public class PlayerMain : MonoBehaviour
         {
             return;
         }
+
+        
         
     }
-
+    
     
 
-    
+
+
+
+
+
+
 }
