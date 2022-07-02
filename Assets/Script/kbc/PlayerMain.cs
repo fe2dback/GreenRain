@@ -53,6 +53,12 @@ public class PlayerMain : MonoBehaviour
     public float criDmg;
     private bool criCheck;
 
+    public GameObject bullet;
+    public Transform SkillPos;
+
+    public float skillCoolTime;
+    private float skillCurTime;
+
 
 
     void Start()
@@ -76,7 +82,7 @@ public class PlayerMain : MonoBehaviour
         isGroundedPrev = false;
 
         curTime = 0;
-        coolTime = 0.5f;
+        //coolTime = 0.5f;
 
         hit = false;
         isRight = 1;
@@ -90,7 +96,9 @@ public class PlayerMain : MonoBehaviour
 
         criPer = 0;
         criDmg = 0;
-        criCheck = false    ;
+        criCheck = false;
+
+        skillCurTime = 0;
 
     //isAttacked = false;
     //isAttackedPrev = false;
@@ -288,6 +296,7 @@ public class PlayerMain : MonoBehaviour
         ActionJump();
         playerAttack();
         WallJumpCheck();
+        PlayerSkill();
         
     }
 
@@ -476,7 +485,41 @@ public class PlayerMain : MonoBehaviour
         isControl = true;
     }
 
-    
+    private void PlayerSkill()
+    {
+        if(isControl == true)
+        {
+            if (skillCurTime <= 0)
+            {
+                //skillCurTime = 0;
+                if (Input.GetKeyDown(KeyCode.Q))
+                {
+                    if(transform.localScale.x == -1)
+                    {
+                        Instantiate(bullet, pos.position, Quaternion.Euler(0, 180, 0));
+                    }
+                    else
+                    {
+                        Instantiate(bullet, pos.position, Quaternion.Euler(0, 0, 0));
+                    }
+                    
+                    skillCurTime = skillCoolTime;
+                }
+                
+            }
+            else
+            {
+                PlayerBullet.attackCheck = false;
+                skillCurTime -= Time.deltaTime;
+            }
+            
+        }
+        else
+        {
+            return;
+        }
+        
+    }
 
     
 
