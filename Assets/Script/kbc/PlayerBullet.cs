@@ -7,13 +7,13 @@ public class PlayerBullet : MonoBehaviour
     public float speed;
     public float skillDistance;
     public LayerMask isLayer;
-    public static bool attackCheck;
+    //public static bool attackCheck;
 
     // Start is called before the first frame update
     void Start()
     {
         Invoke("DestroyBullet", 5);
-        attackCheck = false;
+        //attackCheck = false;
     }
 
     // Update is called once per frame
@@ -25,11 +25,17 @@ public class PlayerBullet : MonoBehaviour
             //attackCheck = false;
             if (ray.collider.tag == "Enemy")
             {
-
+                ray.collider.GetComponent<EnemyMain>().TakeDamage(Random.Range(500, 601));
                 Debug.Log("스킬타격");
             }
             else if (ray.collider.tag == "Enemy2")
             {
+                ray.collider.GetComponent<Enemy2Main>().TakeDamage(Random.Range(500, 601));
+                Debug.Log("스킬타격");
+            }
+            else if (ray.collider.tag == "Boss")
+            {
+                ray.collider.GetComponent<BossMain>().TakeDamage(Random.Range(500, 601));
                 Debug.Log("스킬타격");
             }
             DestroyBullet();

@@ -2,14 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy2Main : MonoBehaviour
+public class BossMain : MonoBehaviour
 {
     private Rigidbody2D rb2d1;
     private Animator animator;
     private Transform check;
     public int hp;
 
-    
+
     public float distance;
     public LayerMask isLayer;
 
@@ -41,7 +41,7 @@ public class Enemy2Main : MonoBehaviour
         animator = transform.Find("Sprite").GetComponent<Animator>();
         check = transform.Find("Check");
         //StartPosition = transform.position;
-        
+
         isControl = true;
         moveCheck = false;
     }
@@ -50,18 +50,18 @@ public class Enemy2Main : MonoBehaviour
     {
         Enemy2Move();
         deadTime();
-        
+
     }
 
-    
 
-    
+
+
     private void Enemy2Move()
     {
-        if(isControl == true)
+        if (isControl == true)
         {
-            RaycastHit2D raycast = Physics2D.Raycast(transform.position, transform.right * -1, distance, isLayer);
-            RaycastHit2D raycast2 = Physics2D.Raycast(transform.position, transform.right, distance, isLayer);
+            RaycastHit2D raycast2 = Physics2D.Raycast(transform.position, transform.right * -1, distance, isLayer);
+            RaycastHit2D raycast = Physics2D.Raycast(transform.position, transform.right, distance, isLayer);
             if (raycast.collider != null)
             {
                 curTime = 0;
@@ -88,7 +88,7 @@ public class Enemy2Main : MonoBehaviour
                 else
                 {
                     transform.position = Vector3.MoveTowards(transform.position, raycast.collider.transform.position, Time.deltaTime * speed);
-                    transform.localScale = new Vector3(1, 1, 1);
+                    transform.localScale = new Vector3(-1, 1, 1);
                     moveCheck = false;
                     animator.SetBool("IsWalk", true);
                 }
@@ -96,7 +96,7 @@ public class Enemy2Main : MonoBehaviour
                 currentTime -= Time.deltaTime;
 
             }
-            else if(raycast2.collider != null)
+            else if (raycast2.collider != null)
             {
                 curTime = 0;
 
@@ -122,7 +122,7 @@ public class Enemy2Main : MonoBehaviour
                 else
                 {
                     transform.position = Vector3.MoveTowards(transform.position, raycast2.collider.transform.position, Time.deltaTime * speed);
-                    transform.localScale = new Vector3(-1, 1, 1);
+                    transform.localScale = new Vector3(1, 1, 1);
                     moveCheck = true;
                     animator.SetBool("IsWalk", true);
                 }
@@ -136,19 +136,19 @@ public class Enemy2Main : MonoBehaviour
                 {
                     if (transform.position != StartPosition)
                     {
-                        if(moveCheck == false)
-                        {
-                            transform.position = Vector3.MoveTowards(transform.position, StartPosition, Time.deltaTime * speed);
-                            transform.localScale = new Vector3(-1, 1, 1);
-                            animator.SetBool("IsWalk", true);
-                        }
-                        else if(moveCheck == true)
+                        if (moveCheck == false)
                         {
                             transform.position = Vector3.MoveTowards(transform.position, StartPosition, Time.deltaTime * speed);
                             transform.localScale = new Vector3(1, 1, 1);
                             animator.SetBool("IsWalk", true);
                         }
-                        
+                        else if (moveCheck == true)
+                        {
+                            transform.position = Vector3.MoveTowards(transform.position, StartPosition, Time.deltaTime * speed);
+                            transform.localScale = new Vector3(-1, 1, 1);
+                            animator.SetBool("IsWalk", true);
+                        }
+
                     }
                     else
                     {
@@ -160,7 +160,7 @@ public class Enemy2Main : MonoBehaviour
 
             }
         }
-        
+
     }
 
 
@@ -169,7 +169,7 @@ public class Enemy2Main : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public void TakeDamage(int damage)
@@ -186,21 +186,21 @@ public class Enemy2Main : MonoBehaviour
             Debug.Log("Monster Dead");
             animator.SetTrigger("Die");
             //Destroy(gameObject);
-           
+
         }
         else
         {
-            if(isControl == true)
+            if (isControl == true)
             {
                 if (transform.position.x > PlayerMain.rb2d.transform.position.x)
                 {
                     rb2d1.velocity = new Vector2(rb2d1.velocity.x + 20, 0);
-                    animator.SetTrigger("Hit");
+                    //animator.SetTrigger("Hit");
                 }
                 else
                 {
                     rb2d1.velocity = new Vector2(rb2d1.velocity.x - 20, 0);
-                    animator.SetTrigger("Hit");
+                    //animator.SetTrigger("Hit");
                 }
             }
         }
@@ -210,7 +210,7 @@ public class Enemy2Main : MonoBehaviour
 
     private void deadTime()
     {
-        if(isControl == false)
+        if (isControl == false)
         {
             timePassed += Time.deltaTime;
             if (timePassed > 1)
@@ -218,8 +218,6 @@ public class Enemy2Main : MonoBehaviour
                 Destroy(gameObject);
             }
         }
-    
+
     }
-
-
 }

@@ -66,7 +66,7 @@ public class Inter : MonoBehaviour
                 alp2 = 0;
             }
         }
-        Debug.Log(alp2);
+        //Debug.Log(alp2);
         
         
          

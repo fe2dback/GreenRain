@@ -60,7 +60,11 @@ public class PlayerMain : MonoBehaviour
     public float skillCoolTime;
     private float skillCurTime;
 
-    
+    private string type;
+    public float per;
+    public float duration;
+    public Sprite icon;
+    //public List<BaseSkill> onBuff = new List<BaseSkill>();
 
 
 
@@ -417,6 +421,16 @@ public class PlayerMain : MonoBehaviour
                             }
                             c2d1.GetComponent<Enemy2Main>().TakeDamage(Random.Range(100,199));
                         }
+                        else if (c2d1.tag == "Boss")
+                        {
+                            if (criCheck == true)
+                            {
+                                criDmg = 2;
+                                c2d1.GetComponent<BossMain>().TakeDamage(Random.Range(100 * (int)criDmg, 199 * (int)criDmg));
+                                continue;
+                            }
+                            c2d1.GetComponent<BossMain>().TakeDamage(Random.Range(100, 199));
+                        }
                     }
                     animator.SetTrigger("Attack");
 
@@ -499,12 +513,15 @@ public class PlayerMain : MonoBehaviour
                 //skillCurTime = 0;
                 if (Input.GetKeyDown(KeyCode.Q))
                 {
+                    BuffManager.instance.CreateBuff(type, per, duration, icon);
                     if(transform.localScale.x == -1)
                     {
+                        animator.SetTrigger("Skill");
                         Instantiate(bullet, pos.position, Quaternion.Euler(0, 180, 0));
                     }
                     else
                     {
+                        animator.SetTrigger("Skill");
                         Instantiate(bullet, pos.position, Quaternion.Euler(0, 0, 0));
                     }
                     
@@ -514,7 +531,7 @@ public class PlayerMain : MonoBehaviour
             }
             else
             {
-                PlayerBullet.attackCheck = false;
+                //PlayerBullet.attackCheck = false;
                 skillCurTime -= Time.deltaTime;
             }
             
@@ -522,11 +539,10 @@ public class PlayerMain : MonoBehaviour
         else
         {
             return;
-        }
-
-        
-        
+        }      
     }
+
+    
     
     
 
