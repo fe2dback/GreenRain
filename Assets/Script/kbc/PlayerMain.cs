@@ -40,7 +40,7 @@ public class PlayerMain : MonoBehaviour
 
     public bool isWall;
     public float slidingSpeed;
-    public float wallJumpPower;
+    public float wallJumpPower; 
     public bool isWallJump;
 
     private bool isinteraction;
@@ -80,7 +80,6 @@ public class PlayerMain : MonoBehaviour
         xAxis = 0;
         //isJumped = false;
         jumpCount = 2;
-        
 
         jumpCoff = 35f;
         moveCoff = 200f;
@@ -107,6 +106,8 @@ public class PlayerMain : MonoBehaviour
 
         skillCurTime = 0;
 
+        
+
        
     //isAttacked = false;
     //isAttackedPrev = false;
@@ -123,7 +124,22 @@ public class PlayerMain : MonoBehaviour
         WallSliding();
         isCheckInteraction();
         CheckInteraction();
+        talkstop();
 
+    }
+
+    private void talkstop()
+    {
+        if(Inter.ck == true)
+        {
+            isControl = false;
+        }
+        if(Inter.ck != true)
+        {
+            isControl = true;
+            Inter.Talkcount = 0; 
+        }
+        
     }
 
     
@@ -541,6 +557,8 @@ public class PlayerMain : MonoBehaviour
             return;
         }      
     }
+
+    
 
     
     

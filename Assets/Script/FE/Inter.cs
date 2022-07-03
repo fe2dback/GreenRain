@@ -5,20 +5,22 @@ using UnityEngine;
 public class Inter : MonoBehaviour
 {
     public static SpriteRenderer render;
+    private Animator animator;
     public static float alp;
-    private float alp2;
+    public static float alp2;
     public static bool check;
-    private bool ck;
+    public static bool ck;
     public static int Talkcount = 0;
 
     // Start is called before the first frame update
     void Start()
     {
-        render = GetComponent<SpriteRenderer>();
+        
         alp = 0;
         alp2 = 0;
         check = false;
         ck = false;
+        
 
     }
 
@@ -35,6 +37,11 @@ public class Inter : MonoBehaviour
   
     private void upp()
     {
+        if(Talkcount >= 12)
+        {
+            ck = false;
+        }
+
         
 
         if (PlayerMain.interactionhas == true)
@@ -42,7 +49,7 @@ public class Inter : MonoBehaviour
             alp += Time.deltaTime;
             
             
-            if(alp > 2f)
+            if(alp > 0.5f)
             {
                 Debug.Log("hello"); //È®ÀÎ¿ë
                 
@@ -51,26 +58,12 @@ public class Inter : MonoBehaviour
                 PlayerMain.interactionhas = false;
                 Talkcount++;
                 alp2 = 0;
+                
 
             }
 
         }
-        if(ck == true)
-        {
-            alp2 += Time.deltaTime;
-            if (alp2 > 20f)
-            {
-                check = true;
-                ck = false;
-                Talkcount = 0;
-                alp2 = 0;
-            }
-        }
-        //Debug.Log(alp2);
-        
-        
-         
-        
+      
     }
 
     
