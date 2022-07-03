@@ -313,7 +313,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 304868252, guid: c4b65b796487cb1449086b9373cf9ff9, type: 3}
+  m_Sprite: {fileID: 1693112843, guid: dd4515e0869ade741bd3e0ee89e6313c, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -460,7 +460,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 1615959380, guid: c4b65b796487cb1449086b9373cf9ff9, type: 3}
+  m_Sprite: {fileID: 1365550212, guid: dd4515e0869ade741bd3e0ee89e6313c, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -989,7 +989,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -1176754633, guid: c4b65b796487cb1449086b9373cf9ff9, type: 3}
+  m_Sprite: {fileID: 883006058, guid: dd4515e0869ade741bd3e0ee89e6313c, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1094,7 +1094,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1980384948}
   - component: {fileID: 1980384950}
-  - component: {fileID: 1980384949}
+  - component: {fileID: 1980384951}
   m_Layer: 5
   m_Name: QuitBtn
   m_TagString: Untagged
@@ -1123,7 +1123,15 @@ RectTransform:
   m_AnchoredPosition: {x: 800, y: -450}
   m_SizeDelta: {x: 300, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1980384949
+--- !u!222 &1980384950
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1980384947}
+  m_CullTransparentMesh: 1
+--- !u!114 &1980384951
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1136,7 +1144,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.15294118, g: 0.32156864, b: 0.19607845, a: 1}
+  m_Color: {r: 0.16078432, g: 0.30588236, b: 0.19215688, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1153,11 +1161,3 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!222 &1980384950
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1980384947}
-  m_CullTransparentMesh: 1
