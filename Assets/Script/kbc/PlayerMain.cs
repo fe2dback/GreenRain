@@ -66,7 +66,8 @@ public class PlayerMain : MonoBehaviour
     public Sprite icon;
     //public List<BaseSkill> onBuff = new List<BaseSkill>();
 
-
+    public static bool enemyCheck;
+    public static bool enemy2Check;
 
     void Start()
     {
@@ -105,6 +106,8 @@ public class PlayerMain : MonoBehaviour
         criCheck = false;
 
         skillCurTime = 0;
+        enemyCheck = false;
+        enemy2Check = false;
 
         
 
@@ -492,13 +495,89 @@ public class PlayerMain : MonoBehaviour
             float y = rb2d.velocity.y;
 
             rb2d.velocity = new Vector2(x, y);
+            if (transform.position.x > Enemy2Main.rb2d2.transform.position.x)
+            {
+                rb2d.velocity = new Vector2(rb2d.velocity.x + 20, 0);
+                animator.SetTrigger("Hit");
+                hit = false;
+                StartCoroutine(hittingnomove());
+            }
+            else if(transform.position.x < Enemy2Main.rb2d2.transform.position.x)
+            {
+                rb2d.velocity = new Vector2(rb2d.velocity.x - 20, 0);
+                animator.SetTrigger("Hit");
+                hit = false;
+                StartCoroutine(hittingnomove());
+            }
 
-            rb2d.velocity += new Vector2(-20f, y);
+
+        }
+        
+    }
+    public void PlayerDamage2(int damage)
+    {
+        hp -= damage;
+        hit = true;
+
+
+        if (hp <= 0)
+        {
+            Debug.Log("Player Dead");
+        }
+        else
+
+        {
+            float x = Mathf.Clamp(rb2d.velocity.x, -10, 10);
+            float y = rb2d.velocity.y;
+
+            rb2d.velocity = new Vector2(x, y);
+
+            rb2d.velocity = new Vector2(rb2d.velocity.x - 20, 0);
             animator.SetTrigger("Hit");
             hit = false;
             StartCoroutine(hittingnomove());
+
+
         }
-        
+
+    }
+
+    public void PlayerDamage3(int damage)
+    {
+        hp -= damage;
+        hit = true;
+
+
+        if (hp <= 0)
+        {
+            Debug.Log("Player Dead");
+        }
+        else
+
+        {
+            float x = Mathf.Clamp(rb2d.velocity.x, -10, 10);
+            float y = rb2d.velocity.y;
+
+            rb2d.velocity = new Vector2(x, y);
+
+            if (transform.position.x > BossMain.bossRb2d.transform.position.x)
+            {
+                rb2d.velocity = new Vector2(rb2d.velocity.x + 20, 0);
+                animator.SetTrigger("Hit");
+                hit = false;
+                StartCoroutine(hittingnomove());
+            }
+            else if (transform.position.x < BossMain.bossRb2d.transform.position.x)
+            {
+                rb2d.velocity = new Vector2(rb2d.velocity.x - 20, 0);
+                animator.SetTrigger("Hit");
+                hit = false;
+                StartCoroutine(hittingnomove());
+            }
+
+
+        }
+
     }
 
     private void WallJumpCheck()

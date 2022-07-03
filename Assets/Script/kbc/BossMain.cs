@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BossMain : MonoBehaviour
 {
-    private Rigidbody2D rb2d1;
+    public static Rigidbody2D bossRb2d;
     private Animator animator;
     private Transform check;
     public int hp;
@@ -37,7 +37,7 @@ public class BossMain : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        rb2d1 = GetComponent<Rigidbody2D>();
+        bossRb2d = GetComponent<Rigidbody2D>();
         animator = transform.Find("Sprite").GetComponent<Animator>();
         check = transform.Find("Check");
         //StartPosition = transform.position;
@@ -48,7 +48,7 @@ public class BossMain : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Enemy2Move();
+        BossMove();
         deadTime();
 
     }
@@ -56,7 +56,7 @@ public class BossMain : MonoBehaviour
 
 
 
-    private void Enemy2Move()
+    private void BossMove()
     {
         if (isControl == true)
         {
@@ -194,12 +194,12 @@ public class BossMain : MonoBehaviour
             {
                 if (transform.position.x > PlayerMain.rb2d.transform.position.x)
                 {
-                    rb2d1.velocity = new Vector2(rb2d1.velocity.x + 20, 0);
+                    bossRb2d.velocity = new Vector2(bossRb2d.velocity.x + 20, 0);
                     //animator.SetTrigger("Hit");
                 }
                 else
                 {
-                    rb2d1.velocity = new Vector2(rb2d1.velocity.x - 20, 0);
+                    bossRb2d.velocity = new Vector2(bossRb2d.velocity.x - 20, 0);
                     //animator.SetTrigger("Hit");
                 }
             }
