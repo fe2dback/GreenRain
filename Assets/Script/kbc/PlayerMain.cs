@@ -477,10 +477,21 @@ public class PlayerMain : MonoBehaviour
 
             rb2d.velocity = new Vector2(x, y);
 
-            rb2d.velocity += new Vector2(-20f, y);
-            animator.SetTrigger("Hit");
-            hit = false;
-            StartCoroutine(hittingnomove());
+            if(Enemy2Main.rb2d1.transform.localScale.x == 1)
+            {
+                rb2d.velocity += new Vector2(-20f, y);
+                animator.SetTrigger("Hit");
+                hit = false;
+                StartCoroutine(hittingnomove());
+            }
+            else
+            {
+                rb2d.velocity += new Vector2(20f, y);
+                animator.SetTrigger("Hit");
+                hit = false;
+                StartCoroutine(hittingnomove());
+            }
+            
         }
         
     }
