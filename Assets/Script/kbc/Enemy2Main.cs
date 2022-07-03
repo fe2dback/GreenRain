@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Enemy2Main : MonoBehaviour
 {
-    public static Rigidbody2D rb2d1;
+    public static Rigidbody2D rb2d2;
     private Animator animator;
     private Transform check;
     public int hp;
@@ -37,7 +37,7 @@ public class Enemy2Main : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        rb2d1 = GetComponent<Rigidbody2D>();
+        rb2d2 = GetComponent<Rigidbody2D>();
         animator = transform.Find("Sprite").GetComponent<Animator>();
         check = transform.Find("Check");
         //StartPosition = transform.position;
@@ -73,11 +73,12 @@ public class Enemy2Main : MonoBehaviour
                     {
                         if (raycast.collider.tag == "Player")
                         {
+                            PlayerMain.enemy2Check = true;
                             raycast.collider.GetComponent<PlayerMain>().PlayerDamage(1);
                             animator.SetTrigger("Attack");
                             Debug.Log("피격");
                         }
-
+                        PlayerMain.enemy2Check = false;
                         currentTime = coolTime;
                     }
                 }
@@ -107,11 +108,12 @@ public class Enemy2Main : MonoBehaviour
                     {
                         if (raycast2.collider.tag == "Player")
                         {
+                            PlayerMain.enemy2Check = true;
                             raycast2.collider.GetComponent<PlayerMain>().PlayerDamage(1);
                             animator.SetTrigger("Attack");
                             Debug.Log("피격");
                         }
-
+                        PlayerMain.enemy2Check = false;
                         currentTime = coolTime;
                     }
                 }
@@ -194,12 +196,12 @@ public class Enemy2Main : MonoBehaviour
             {
                 if (transform.position.x > PlayerMain.rb2d.transform.position.x)
                 {
-                    rb2d1.velocity = new Vector2(rb2d1.velocity.x + 20, 0);
+                    rb2d2.velocity = new Vector2(rb2d2.velocity.x + 20, 0);
                     animator.SetTrigger("Hit");
                 }
                 else
                 {
-                    rb2d1.velocity = new Vector2(rb2d1.velocity.x - 20, 0);
+                    rb2d2.velocity = new Vector2(rb2d2.velocity.x - 20, 0);
                     animator.SetTrigger("Hit");
                 }
             }

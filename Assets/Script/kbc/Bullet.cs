@@ -25,10 +25,12 @@ public class Bullet : MonoBehaviour
         {
             if(raycast.collider.tag == "Player")
             {
-                raycast.collider.GetComponent<PlayerMain>().PlayerDamage(1);
+                //PlayerMain.enemyCheck = true;
+                raycast.collider.GetComponent<PlayerMain>().PlayerDamage2(1);
                 Debug.Log("ÇÇ°Ý");
            
             }
+            //PlayerMain.enemyCheck = false;
             DestroyBullet();
         }
 
