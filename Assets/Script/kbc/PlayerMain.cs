@@ -169,7 +169,15 @@ public class PlayerMain : MonoBehaviour
         {
             if (Input.GetKey(KeyCode.F))
             {
+                animator.SetBool("Run", false);
+                animator.SetBool("IsWalk", false);
+                animator.SetBool("Sit", false);
+                
                 interactionhas = true;
+                if(interactionhas == true)
+                {
+                    animator.SetTrigger("Idle");
+                }
             }
         }
     }
@@ -345,6 +353,7 @@ public class PlayerMain : MonoBehaviour
     
     void Update()
     {
+        
         ActionMove();
         ActionJump();
         playerAttack();
