@@ -7,8 +7,9 @@ public class Enemy2Main : MonoBehaviour
     public static Rigidbody2D rb2d2;
     private Animator animator;
     private Transform check;
-    public int hp;
-
+    public int hp; 
+       
+    
     
     public float distance;
     public LayerMask isLayer;
@@ -33,15 +34,21 @@ public class Enemy2Main : MonoBehaviour
 
     private bool moveCheck;
 
+    
+
 
     // Start is called before the first frame update
     void Start()
     {
         rb2d2 = GetComponent<Rigidbody2D>();
         animator = transform.Find("Sprite").GetComponent<Animator>();
-        check = transform.Find("Check");
-        //StartPosition = transform.position;
         
+        check = transform.Find("Check");
+         
+        //StartPosition = transform.position;
+
+
+
         isControl = true;
         moveCheck = false;
     }
@@ -217,11 +224,15 @@ public class Enemy2Main : MonoBehaviour
             timePassed += Time.deltaTime;
             if (timePassed > 1)
             {
+                
                 Destroy(gameObject);
+                
             }
         }
     
     }
+
+   
 
 
 }

@@ -128,6 +128,7 @@ public class PlayerMain : MonoBehaviour
         isCheckInteraction();
         CheckInteraction();
         talkstop();
+        Sit();
 
     }
 
@@ -168,7 +169,15 @@ public class PlayerMain : MonoBehaviour
         {
             if (Input.GetKey(KeyCode.F))
             {
+                animator.SetBool("Run", false);
+                animator.SetBool("IsWalk", false);
+                animator.SetBool("Sit", false);
+                
                 interactionhas = true;
+                if(interactionhas == true)
+                {
+                    animator.SetTrigger("Idle");
+                }
             }
         }
     }
@@ -246,9 +255,34 @@ public class PlayerMain : MonoBehaviour
         }
     }
 
+    private void Sit()
+    {
+        if (isControl == true)
+        {
+            if (Input.GetKey(KeyCode.LeftControl))
+            {
+
+                isControl = false;
+                animator.SetBool("Sit", true);
+                gameObject.GetComponent<BoxCollider2D>().size = new Vector2(2.4f, 2.4f);
+                animator.ResetTrigger("Attack");
+                animator.ResetTrigger("Hit");
+            }
+            else
+            {
+                isControl=true;
+                animator.SetBool("Sit", false);
+                gameObject.GetComponent<BoxCollider2D>().size = new Vector2(2.416058f, 4.936642f);
+
+            }
+        }
+        
+    }
     private void SetVelocity()
     {
-        if(isControl == true)
+        
+
+        if (isControl == true)
         {
             if (Input.GetKey(KeyCode.LeftShift))
             {
@@ -267,7 +301,6 @@ public class PlayerMain : MonoBehaviour
                 moveCoff = 200f;
                 animator.SetBool("Run", false);
             }
-
 
             rb2d.AddForce(new Vector2(xAxis * moveCoff, 0));
             
@@ -320,6 +353,7 @@ public class PlayerMain : MonoBehaviour
     
     void Update()
     {
+        
         ActionMove();
         ActionJump();
         playerAttack();
@@ -336,6 +370,7 @@ public class PlayerMain : MonoBehaviour
             return;
         }
         */
+        
 
         if (isWallJump == true)
         {
