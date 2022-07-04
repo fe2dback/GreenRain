@@ -20,13 +20,13 @@ public class fe_3 : MonoBehaviour
         for (; ; )
 
         {
-            int rs = Random.Range(5, 30);
-            int rd = Random.Range(-30, 450);
+            int rs = Random.Range(5, 10);
+            int rd = Random.Range(-20, 20);
             i.transform.position -= new Vector3(0, rs, 0) ;
 
             if(i.transform.position.y < -15f)
             {
-                i.transform.position = new Vector3(rd, 300, 0);
+                i.transform.position = new Vector3(rd, 15, 0);
             }
             
 
@@ -50,9 +50,9 @@ public class fe_3 : MonoBehaviour
 
         GameObject[] blocks;
 
-        blocks = new GameObject[1000];
+        blocks = new GameObject[40];
 
-        for (int i = 0; i < 1000; i++)
+        for (int i = 0; i < 40; i++)
 
         {
 
@@ -66,7 +66,7 @@ public class fe_3 : MonoBehaviour
 
             blocks[i].name = i.ToString();
 
-            //blocks[i].transform.localScale = new Vector3(0.5f, 1f, 0);
+            blocks[i].transform.localScale = new Vector3(0.5f, 1f, 0);
 
             blocks[i].transform.position = new Vector3(i, 0, 0);
 
