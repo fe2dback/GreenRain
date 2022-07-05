@@ -69,6 +69,9 @@ public class PlayerMain : MonoBehaviour
     public static bool enemyCheck;
     public static bool enemy2Check;
 
+    //public static Vector3 enemyTp;
+    public static Vector3 enemy2Tp;
+
     void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
@@ -135,11 +138,11 @@ public class PlayerMain : MonoBehaviour
     {
         if(Inter.ck == true)
         {
-            isControl = false;
+            //isControl = false;          
         }
         if(Inter.ck != true)
         {
-            isControl = true;
+            //isControl = true;          // 이것때문에 isControl이 계속 true 고정됬었음
             Inter.Talkcount = 0; 
         }
         
@@ -495,20 +498,26 @@ public class PlayerMain : MonoBehaviour
             float y = rb2d.velocity.y;
 
             rb2d.velocity = new Vector2(x, y);
-            if (transform.position.x > Enemy2Main.rb2d2.transform.position.x)
+            if(isControl == true)
             {
-                rb2d.velocity = new Vector2(rb2d.velocity.x + 20, 0);
-                animator.SetTrigger("Hit");
-                hit = false;
-                StartCoroutine(hittingnomove());
+                if (transform.position.x > enemy2Tp.x)
+                {
+                    StartCoroutine(Hittingnomove());
+                    rb2d.velocity = new Vector2(rb2d.velocity.x + 20, 0);
+                    animator.SetTrigger("Hit");
+                    hit = false;
+                    //StartCoroutine(hittingnomove());
+                }
+                else if (transform.position.x < enemy2Tp.x)
+                {
+                    StartCoroutine(Hittingnomove());
+                    rb2d.velocity = new Vector2(rb2d.velocity.x - 20, 0);
+                    animator.SetTrigger("Hit");
+                    hit = false;
+                    //StartCoroutine(hittingnomove());
+                }
             }
-            else if(transform.position.x < Enemy2Main.rb2d2.transform.position.x)
-            {
-                rb2d.velocity = new Vector2(rb2d.velocity.x - 20, 0);
-                animator.SetTrigger("Hit");
-                hit = false;
-                StartCoroutine(hittingnomove());
-            }
+            //isControl = true;
 
 
         }
@@ -535,7 +544,7 @@ public class PlayerMain : MonoBehaviour
             rb2d.velocity = new Vector2(rb2d.velocity.x - 20, 0);
             animator.SetTrigger("Hit");
             hit = false;
-            StartCoroutine(hittingnomove());
+            StartCoroutine(Hittingnomove());
 
 
         }
@@ -562,21 +571,30 @@ public class PlayerMain : MonoBehaviour
 
             if (transform.position.x > BossMain.bossRb2d.transform.position.x)
             {
+                //StartCoroutine(hittingnomove());
                 rb2d.velocity = new Vector2(rb2d.velocity.x + 20, 0);
                 animator.SetTrigger("Hit");
                 hit = false;
-                StartCoroutine(hittingnomove());
+                StartCoroutine(Hittingnomove());
             }
             else if (transform.position.x < BossMain.bossRb2d.transform.position.x)
             {
+                //StartCoroutine(hittingnomove());
                 rb2d.velocity = new Vector2(rb2d.velocity.x - 20, 0);
                 animator.SetTrigger("Hit");
                 hit = false;
-                StartCoroutine(hittingnomove());
+                StartCoroutine(Hittingnomove());
             }
 
 
         }
+
+    }
+
+
+    public void enemy2Velocity(Vector3 tp)
+    {
+        enemy2Tp = tp;
 
     }
 
@@ -587,17 +605,21 @@ public class PlayerMain : MonoBehaviour
         
     }
 
-    private IEnumerator hittingnomove()
+    private IEnumerator Hittingnomove()
     {
         isControl = false;
+        
         if(isControl == false)
         {
             jumpCount = 2;
         }
-        yield return new WaitForSeconds(0.5f);
+        
+        yield return new WaitForSeconds(0.3f);
         
         isControl = true;
     }
+
+
 
     private void PlayerSkill()
     {

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyMain : MonoBehaviour
 {
-    public static Rigidbody2D rb2d1;
+    public Rigidbody2D rb2d1;
     private Animator animator;
     private Transform check;
     public int hp;

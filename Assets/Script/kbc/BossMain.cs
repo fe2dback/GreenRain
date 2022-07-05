@@ -73,7 +73,7 @@ public class BossMain : MonoBehaviour
                     {
                         if (raycast.collider.tag == "Player")
                         {
-                            raycast.collider.GetComponent<PlayerMain>().PlayerDamage(1);
+                            raycast.collider.GetComponent<PlayerMain>().PlayerDamage3(1);
                             animator.SetTrigger("Attack");
                             Debug.Log("피격");
                         }
@@ -107,7 +107,7 @@ public class BossMain : MonoBehaviour
                     {
                         if (raycast2.collider.tag == "Player")
                         {
-                            raycast2.collider.GetComponent<PlayerMain>().PlayerDamage(1);
+                            raycast2.collider.GetComponent<PlayerMain>().PlayerDamage3(1);
                             animator.SetTrigger("Attack");
                             Debug.Log("피격");
                         }
