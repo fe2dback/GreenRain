@@ -25,7 +25,7 @@ public class PlayerBullet : MonoBehaviour
             //attackCheck = false;
             if (ray.collider.tag == "Enemy")
             {
-                ray.collider.GetComponent<EnemyMain>().TakeDamage(Random.Range(500, 601));
+                ray.collider.GetComponent<EnemyMain>().TakeDamage(Random.Range(1000, 1100));
                 Debug.Log("스킬타격");
             }
             else if (ray.collider.tag == "Enemy2")

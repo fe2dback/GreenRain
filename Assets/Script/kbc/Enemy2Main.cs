@@ -4,12 +4,11 @@ using UnityEngine;
 
 public class Enemy2Main : MonoBehaviour
 {
-    public static Rigidbody2D rb2d2;
+    public Rigidbody2D rb2d2;
     private Animator animator;
     private Transform check;
-    public int hp; 
-       
-    
+    public int hp;
+
     
     public float distance;
     public LayerMask isLayer;
@@ -34,21 +33,15 @@ public class Enemy2Main : MonoBehaviour
 
     private bool moveCheck;
 
-    
-
 
     // Start is called before the first frame update
     void Start()
     {
         rb2d2 = GetComponent<Rigidbody2D>();
         animator = transform.Find("Sprite").GetComponent<Animator>();
-        
         check = transform.Find("Check");
-         
         //StartPosition = transform.position;
-
-
-
+        
         isControl = true;
         moveCheck = false;
     }
@@ -82,6 +75,7 @@ public class Enemy2Main : MonoBehaviour
                         {
                             PlayerMain.enemy2Check = true;
                             raycast.collider.GetComponent<PlayerMain>().PlayerDamage(1);
+                            raycast.collider.GetComponent<PlayerMain>().enemy2Velocity(rb2d2.transform.position);
                             animator.SetTrigger("Attack");
                             Debug.Log("피격");
                         }
@@ -116,7 +110,9 @@ public class Enemy2Main : MonoBehaviour
                         if (raycast2.collider.tag == "Player")
                         {
                             PlayerMain.enemy2Check = true;
+
                             raycast2.collider.GetComponent<PlayerMain>().PlayerDamage(1);
+                            raycast2.collider.GetComponent<PlayerMain>().enemy2Velocity(rb2d2.transform.position);
                             animator.SetTrigger("Attack");
                             Debug.Log("피격");
                         }
@@ -188,27 +184,30 @@ public class Enemy2Main : MonoBehaviour
         hudText.GetComponent<DamageText>().damage = damage;
 
         hp -= damage;
-        //rb2d.velocity = Vector2.zero;
+        
         if (hp <= 0)
         {
             isControl = false;
             Debug.Log("Monster Dead");
             animator.SetTrigger("Die");
             //Destroy(gameObject);
-           
+
         }
         else
         {
-            if(isControl == true)
+            
+            if (isControl == true)
             {
                 if (transform.position.x > PlayerMain.rb2d.transform.position.x)
                 {
                     rb2d2.velocity = new Vector2(rb2d2.velocity.x + 20, 0);
+                    //transform.position = new Vector2(transform.position.x + 6, transform.position.y);
                     animator.SetTrigger("Hit");
                 }
                 else
                 {
                     rb2d2.velocity = new Vector2(rb2d2.velocity.x - 20, 0);
+                    //transform.position = new Vector2(transform.position.x - 3, transform.position.y);
                     animator.SetTrigger("Hit");
                 }
             }
@@ -224,15 +223,12 @@ public class Enemy2Main : MonoBehaviour
             timePassed += Time.deltaTime;
             if (timePassed > 1)
             {
-                
                 Destroy(gameObject);
-                
             }
         }
     
     }
 
-   
 
 
 }

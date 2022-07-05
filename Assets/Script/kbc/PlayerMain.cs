@@ -69,6 +69,9 @@ public class PlayerMain : MonoBehaviour
     public static bool enemyCheck;
     public static bool enemy2Check;
 
+    //public static Vector3 enemyTp;
+    public static Vector3 enemy2Tp;
+
     void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
@@ -128,7 +131,6 @@ public class PlayerMain : MonoBehaviour
         isCheckInteraction();
         CheckInteraction();
         talkstop();
-        Sit();
 
     }
 
@@ -136,11 +138,11 @@ public class PlayerMain : MonoBehaviour
     {
         if(Inter.ck == true)
         {
-            isControl = false;
+            //isControl = false;          
         }
         if(Inter.ck != true)
         {
-            isControl = true;
+            //isControl = true;          // 이것때문에 isControl이 계속 true 고정됬었음
             Inter.Talkcount = 0; 
         }
         
@@ -169,15 +171,7 @@ public class PlayerMain : MonoBehaviour
         {
             if (Input.GetKey(KeyCode.F))
             {
-                animator.SetBool("Run", false);
-                animator.SetBool("IsWalk", false);
-                animator.SetBool("Sit", false);
-                
                 interactionhas = true;
-                if(interactionhas == true)
-                {
-                    animator.SetTrigger("Idle");
-                }
             }
         }
     }
@@ -255,34 +249,9 @@ public class PlayerMain : MonoBehaviour
         }
     }
 
-    private void Sit()
-    {
-        if (isControl == true)
-        {
-            if (Input.GetKey(KeyCode.LeftControl))
-            {
-
-                isControl = false;
-                animator.SetBool("Sit", true);
-                gameObject.GetComponent<BoxCollider2D>().size = new Vector2(2.4f, 2.4f);
-                animator.ResetTrigger("Attack");
-                animator.ResetTrigger("Hit");
-            }
-            else
-            {
-                isControl=true;
-                animator.SetBool("Sit", false);
-                gameObject.GetComponent<BoxCollider2D>().size = new Vector2(2.416058f, 4.936642f);
-
-            }
-        }
-        
-    }
     private void SetVelocity()
     {
-        
-
-        if (isControl == true)
+        if(isControl == true)
         {
             if (Input.GetKey(KeyCode.LeftShift))
             {
@@ -301,6 +270,7 @@ public class PlayerMain : MonoBehaviour
                 moveCoff = 200f;
                 animator.SetBool("Run", false);
             }
+
 
             rb2d.AddForce(new Vector2(xAxis * moveCoff, 0));
             
@@ -353,7 +323,6 @@ public class PlayerMain : MonoBehaviour
     
     void Update()
     {
-        
         ActionMove();
         ActionJump();
         playerAttack();
@@ -370,7 +339,6 @@ public class PlayerMain : MonoBehaviour
             return;
         }
         */
-        
 
         if (isWallJump == true)
         {
@@ -530,20 +498,26 @@ public class PlayerMain : MonoBehaviour
             float y = rb2d.velocity.y;
 
             rb2d.velocity = new Vector2(x, y);
-            if (transform.position.x > Enemy2Main.rb2d2.transform.position.x)
+            if(isControl == true)
             {
-                rb2d.velocity = new Vector2(rb2d.velocity.x + 20, 0);
-                animator.SetTrigger("Hit");
-                hit = false;
-                StartCoroutine(hittingnomove());
+                if (transform.position.x > enemy2Tp.x)
+                {
+                    StartCoroutine(Hittingnomove());
+                    rb2d.velocity = new Vector2(rb2d.velocity.x + 20, 0);
+                    animator.SetTrigger("Hit");
+                    hit = false;
+                    //StartCoroutine(hittingnomove());
+                }
+                else if (transform.position.x < enemy2Tp.x)
+                {
+                    StartCoroutine(Hittingnomove());
+                    rb2d.velocity = new Vector2(rb2d.velocity.x - 20, 0);
+                    animator.SetTrigger("Hit");
+                    hit = false;
+                    //StartCoroutine(hittingnomove());
+                }
             }
-            else if(transform.position.x < Enemy2Main.rb2d2.transform.position.x)
-            {
-                rb2d.velocity = new Vector2(rb2d.velocity.x - 20, 0);
-                animator.SetTrigger("Hit");
-                hit = false;
-                StartCoroutine(hittingnomove());
-            }
+            //isControl = true;
 
 
         }
@@ -570,7 +544,7 @@ public class PlayerMain : MonoBehaviour
             rb2d.velocity = new Vector2(rb2d.velocity.x - 20, 0);
             animator.SetTrigger("Hit");
             hit = false;
-            StartCoroutine(hittingnomove());
+            StartCoroutine(Hittingnomove());
 
 
         }
@@ -597,21 +571,30 @@ public class PlayerMain : MonoBehaviour
 
             if (transform.position.x > BossMain.bossRb2d.transform.position.x)
             {
+                //StartCoroutine(hittingnomove());
                 rb2d.velocity = new Vector2(rb2d.velocity.x + 20, 0);
                 animator.SetTrigger("Hit");
                 hit = false;
-                StartCoroutine(hittingnomove());
+                StartCoroutine(Hittingnomove());
             }
             else if (transform.position.x < BossMain.bossRb2d.transform.position.x)
             {
+                //StartCoroutine(hittingnomove());
                 rb2d.velocity = new Vector2(rb2d.velocity.x - 20, 0);
                 animator.SetTrigger("Hit");
                 hit = false;
-                StartCoroutine(hittingnomove());
+                StartCoroutine(Hittingnomove());
             }
 
 
         }
+
+    }
+
+
+    public void enemy2Velocity(Vector3 tp)
+    {
+        enemy2Tp = tp;
 
     }
 
@@ -622,17 +605,21 @@ public class PlayerMain : MonoBehaviour
         
     }
 
-    private IEnumerator hittingnomove()
+    private IEnumerator Hittingnomove()
     {
         isControl = false;
+        
         if(isControl == false)
         {
             jumpCount = 2;
         }
-        yield return new WaitForSeconds(0.5f);
+        
+        yield return new WaitForSeconds(0.3f);
         
         isControl = true;
     }
+
+
 
     private void PlayerSkill()
     {
