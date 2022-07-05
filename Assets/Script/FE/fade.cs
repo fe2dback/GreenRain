@@ -6,28 +6,35 @@ public class fade : MonoBehaviour
 {
     private Animator animator;
     public static bool black = false;
+    
     // Start is called before the first frame update
     void Start()
     {
-        animator = transform.Find("Square").GetComponent<Animator>();
-       
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (black == true)
-        {
-            animator.SetTrigger("blacka");
-            black = false;
-        }
 
+        stop();
 
 
     }
     private void FixedUpdate()
     {
         
+    }
+
+
+    private void stop()
+    {
+        if (black == true)
+        {
+            Debug.Log("ddd");
+            animator.SetTrigger("blacka");
+            black = false;
+        }
     }
 
     

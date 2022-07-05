@@ -93,7 +93,6 @@ public class PlayerMain : MonoBehaviour
         //WallCheck = transform.Find("WallCheck");
         //pos = transform.Find("AttackCheck");
 
-        hp = 10;
 
         xAxis = 0;
         //isJumped = false;
@@ -542,7 +541,9 @@ public class PlayerMain : MonoBehaviour
 
         if (hp <= 0)
         {
-            Debug.Log("Player Dead");
+            transform.position = new Vector2(-20f, -8f);
+            fade.black = true;
+            hp = 3;
         }
         else
 
@@ -587,7 +588,7 @@ public class PlayerMain : MonoBehaviour
             Debug.Log("Player Dead");
             transform.position = new Vector2(-20f, -8f);
             fade.black = true;
-            hp = 10;
+            hp = 3;
         }
         else
 
@@ -615,7 +616,9 @@ public class PlayerMain : MonoBehaviour
 
         if (hp <= 0)
         {
-            Debug.Log("Player Dead");
+            transform.position = new Vector2(-20f, -8f);
+            fade.black = true;
+            hp = 3;
         }
         else
 
