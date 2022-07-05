@@ -26,7 +26,7 @@ public class T1 : MonoBehaviour
     private void talk()
 
     {
-        Debug.Log(Inter.Talkcount);
+        //Debug.Log(Inter.Talkcount);
         switch(Inter.Talkcount)
         {
 

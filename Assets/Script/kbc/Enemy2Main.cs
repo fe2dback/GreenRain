@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Enemy2Main : MonoBehaviour
 {
-    public Rigidbody2D rb2d2;
+    private Rigidbody2D rb2d2;
     private Animator animator;
     private Transform check;
     public int hp;
@@ -74,8 +74,8 @@ public class Enemy2Main : MonoBehaviour
                         if (raycast.collider.tag == "Player")
                         {
                             PlayerMain.enemy2Check = true;
-                            raycast.collider.GetComponent<PlayerMain>().PlayerDamage(1);
                             raycast.collider.GetComponent<PlayerMain>().enemy2Velocity(rb2d2.transform.position);
+                            raycast.collider.GetComponent<PlayerMain>().PlayerDamage(1);
                             animator.SetTrigger("Attack");
                             Debug.Log("피격");
                         }
@@ -110,9 +110,8 @@ public class Enemy2Main : MonoBehaviour
                         if (raycast2.collider.tag == "Player")
                         {
                             PlayerMain.enemy2Check = true;
-
-                            raycast2.collider.GetComponent<PlayerMain>().PlayerDamage(1);
                             raycast2.collider.GetComponent<PlayerMain>().enemy2Velocity(rb2d2.transform.position);
+                            raycast2.collider.GetComponent<PlayerMain>().PlayerDamage(1);
                             animator.SetTrigger("Attack");
                             Debug.Log("피격");
                         }

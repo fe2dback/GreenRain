@@ -29,6 +29,7 @@ public class GateMain : MonoBehaviour
 
         yield return new WaitForFixedUpdate();
         targetObj.transform.position = toObj.transform.position;
+        SoundManager.instance.MusicStop(true);
 
         yield return new WaitForSeconds(0.7f);
         targetObj.GetComponent<PlayerMain>().isControl = true;

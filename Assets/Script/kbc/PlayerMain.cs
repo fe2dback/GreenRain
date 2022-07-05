@@ -74,12 +74,22 @@ public class PlayerMain : MonoBehaviour
     //public static Vector3 enemyTp;
     public static Vector3 enemy2Tp;
 
+    public AudioClip attackClip;
+    public AudioClip skillClip;
+    //public AudioClip walkClip;
+
+    private AudioSource audioSrc;
+    public bool isMoving;
+    bool walkCheck;
+
+
     void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
         animator = transform.Find("Sprite").GetComponent<Animator>();
         check = transform.Find("Check");
         interaction = transform.Find("Interaction");
+        audioSrc = GetComponent<AudioSource>();
         //WallCheck = transform.Find("WallCheck");
         //pos = transform.Find("AttackCheck");
 
@@ -116,12 +126,14 @@ public class PlayerMain : MonoBehaviour
         enemyCheck = false;
         enemy2Check = false;
 
-        
+        isMoving = false;
+        walkCheck = false;
 
-       
-    //isAttacked = false;
-    //isAttackedPrev = false;
-}
+        //audioSrc.Play();
+
+        //isAttacked = false;
+        //isAttackedPrev = false;
+    }
 
     private void FixedUpdate()
     {
@@ -333,6 +345,25 @@ public class PlayerMain : MonoBehaviour
         WallJumpCheck();
         PlayerSkill();
         
+
+    }
+
+    private void walkSound(bool isMoving)
+    {
+        
+        if (isMoving == true && walkCheck == false)
+        {
+            audioSrc.Play();
+            walkCheck = true;
+
+        }
+        else if(isMoving == false && walkCheck == true)
+        {
+            audioSrc.Stop();
+            walkCheck = false;
+        }
+        
+        
     }
 
     private void ActionMove()
@@ -352,17 +383,31 @@ public class PlayerMain : MonoBehaviour
         if(isControl == true)
         {
             xAxis = Input.GetAxis("Horizontal");
+            
+            
+            
 
             if (Mathf.Abs(xAxis) < 0.1f)
             {
-                 xAxis = 0;
+                walkSound(false);
+                //SoundManager.instance.SFXPlayBool("Walk", walkClip, false);
+                xAxis = 0;
+                //audioSrc.Stop();
                 animator.SetBool("IsWalk", false);
             }
 
             else
             {
+                walkSound(true);
+                //SoundManager.instance.SFXPlayBool("Walk", attackClip, true);
+
+                //audioSrc.Play();
+
                 animator.SetBool("IsWalk", true);
             }
+            
+            
+            
         }
         
     }
@@ -419,6 +464,7 @@ public class PlayerMain : MonoBehaviour
             {
                 if (Input.GetMouseButtonDown(0) && jumpCount == 2)
                 {
+                    SoundManager.instance.SFXPlay("Attack", attackClip);
                     Collider2D[] c2ds1 = Physics2D.OverlapBoxAll(pos.position, boxSize, 0);
                     foreach (Collider2D c2d1 in c2ds1)
                     {
@@ -431,6 +477,7 @@ public class PlayerMain : MonoBehaviour
                             {
                                 criDmg = 2;
                                 c2d1.GetComponent<EnemyMain>().TakeDamage(Random.Range(200 * (int)criDmg, 299 * (int)criDmg));
+                                
                                 continue;
                             }
                             c2d1.GetComponent<EnemyMain>().TakeDamage(Random.Range(200,299));
@@ -443,6 +490,7 @@ public class PlayerMain : MonoBehaviour
                             {
                                 criDmg = 2;
                                 c2d1.GetComponent<Enemy2Main>().TakeDamage(Random.Range(100 * (int)criDmg, 199 * (int)criDmg));
+                                
                                 continue;
                             }
                             c2d1.GetComponent<Enemy2Main>().TakeDamage(Random.Range(100,199));
@@ -453,6 +501,7 @@ public class PlayerMain : MonoBehaviour
                             {
                                 criDmg = 2;
                                 c2d1.GetComponent<BossMain>().TakeDamage(Random.Range(100 * (int)criDmg, 199 * (int)criDmg));
+                                
                                 continue;
                             }
                             c2d1.GetComponent<BossMain>().TakeDamage(Random.Range(100, 199));
@@ -637,15 +686,18 @@ public class PlayerMain : MonoBehaviour
                 //skillCurTime = 0;
                 if (Input.GetKeyDown(KeyCode.Q))
                 {
+                    SoundManager.instance.SFXPlay("Skill", skillClip);
                     BuffManager.instance.CreateBuff(type, per, duration, icon);
                     if(transform.localScale.x == -1)
                     {
                         animator.SetTrigger("Skill");
+                        
                         Instantiate(bullet, pos.position, Quaternion.Euler(0, 180, 0));
                     }
                     else
                     {
                         animator.SetTrigger("Skill");
+                        
                         Instantiate(bullet, pos.position, Quaternion.Euler(0, 0, 0));
                     }
                     
@@ -663,10 +715,10 @@ public class PlayerMain : MonoBehaviour
         else
         {
             return;
-        }      
+        }
+        
     }
 
-    
 
     
     
