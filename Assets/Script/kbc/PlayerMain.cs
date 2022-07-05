@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerMain : MonoBehaviour
 {
+    
+
     public static Rigidbody2D rb2d;
     private Animator animator;
     private Transform check;
@@ -80,6 +82,8 @@ public class PlayerMain : MonoBehaviour
         interaction = transform.Find("Interaction");
         //WallCheck = transform.Find("WallCheck");
         //pos = transform.Find("AttackCheck");
+
+        hp = 10;
 
         xAxis = 0;
         //isJumped = false;
@@ -351,7 +355,7 @@ public class PlayerMain : MonoBehaviour
 
             if (Mathf.Abs(xAxis) < 0.1f)
             {
-                xAxis = 0;
+                 xAxis = 0;
                 animator.SetBool("IsWalk", false);
             }
 
@@ -532,6 +536,9 @@ public class PlayerMain : MonoBehaviour
         if (hp <= 0)
         {
             Debug.Log("Player Dead");
+            transform.position = new Vector2(-20f, -8f);
+            fade.black = true;
+            hp = 10;
         }
         else
 

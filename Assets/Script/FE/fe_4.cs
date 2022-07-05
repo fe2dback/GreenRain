@@ -6,7 +6,7 @@ using UnityEngine;
 
 
 
-public class fe_3 : MonoBehaviour
+public class fe_4 : MonoBehaviour
 
 {
     Sprite data;
@@ -42,7 +42,7 @@ public class fe_3 : MonoBehaviour
 
     {
 
-        data = GameObject.Find("rain 1").GetComponent<SpriteRenderer>().sprite;
+        data = GameObject.Find("rain 2").GetComponent<SpriteRenderer>().sprite;
         size = GetComponent<Transform>();
 
 

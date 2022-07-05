@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class MainCamera : MonoBehaviour
 {
+
+    public static bool black;
+
     public Transform target;
     public float speed;
 
@@ -12,10 +15,12 @@ public class MainCamera : MonoBehaviour
 
     private float height;
     private float widht;
+    
 
     // Start is called before the first frame update
     void Start()
     {
+        
         height = Camera.main.orthographicSize;
         widht = height * Screen.width / Screen.height;
     }
@@ -25,6 +30,8 @@ public class MainCamera : MonoBehaviour
         Gizmos.color = Color.red;
         Gizmos.DrawWireCube(center, size);
     }
+    
+    
 
     // Update is called once per frame
     void LateUpdate()
