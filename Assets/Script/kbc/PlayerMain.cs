@@ -36,6 +36,7 @@ public class PlayerMain : MonoBehaviour
     public LayerMask w_Layer;
 
     public int hp;
+    public int spawnhp;
     public static bool hit;
 
     public float isRight; // 플레이어가 바로보든 방향 1= 오른쪽, -1는 왼쪽
@@ -237,19 +238,19 @@ public class PlayerMain : MonoBehaviour
                 isGrounded = true;
                 break;
             }
-            else if(c2d.gameObject.layer == 11)//enemy2
+            else if (c2d.gameObject.layer == 11)//enemy2
             {
-                PlayerDamage(1);
+                PlayerDamage(0);
                 isGrounded = true;
-                
+
                 animator.SetTrigger("Idle");
                 jumpCount = 2;
                 break;
             }
             else if (c2d.gameObject.layer == 8)//enemy
             {
-                PlayerDamage(1);
-                
+                PlayerDamage(0);
+
                 isGrounded = true;
                 animator.SetTrigger("Idle");
                 jumpCount = 2;
@@ -264,6 +265,11 @@ public class PlayerMain : MonoBehaviour
         {
             jumpCount = 2;
             animator.SetTrigger("Idle");
+        }
+        if(isGrounded == true && isGroundedPrev == false)
+        {
+            Debug.Log(jumpCount);
+            animator.ResetTrigger("Jump_two");
         }
     }
 
@@ -448,6 +454,8 @@ public class PlayerMain : MonoBehaviour
                 return;
             }
 
+            
+
 
             
             
@@ -557,12 +565,12 @@ public class PlayerMain : MonoBehaviour
         {
             transform.position = new Vector2(-20f, -8f);
             fade.black = true;
-            hp = 3;
+            hp = spawnhp;
         }
         else
 
         {
-            float x = Mathf.Clamp(rb2d.velocity.x, -30, 30) ;
+            float x = Mathf.Clamp(rb2d.velocity.x, -50, 50) ;
             float y = rb2d.velocity.y;
 
             rb2d.velocity = new Vector2(x, y);
@@ -571,7 +579,7 @@ public class PlayerMain : MonoBehaviour
                 if (transform.position.x > enemy2Tp.x)
                 {
                     StartCoroutine(Hittingnomove());
-                    rb2d.velocity = new Vector2(rb2d.velocity.x + 20, 0);
+                    rb2d.velocity = new Vector2(rb2d.velocity.x + 40, 0);
                     animator.SetTrigger("Hit");
                     hit = false;
                     //StartCoroutine(hittingnomove());
@@ -579,7 +587,7 @@ public class PlayerMain : MonoBehaviour
                 else if (transform.position.x < enemy2Tp.x)
                 {
                     StartCoroutine(Hittingnomove());
-                    rb2d.velocity = new Vector2(rb2d.velocity.x - 20, 0);
+                    rb2d.velocity = new Vector2(rb2d.velocity.x - 40, 0);
                     animator.SetTrigger("Hit");
                     hit = false;
                     //StartCoroutine(hittingnomove());
@@ -602,12 +610,12 @@ public class PlayerMain : MonoBehaviour
             Debug.Log("Player Dead");
             transform.position = new Vector2(-20f, -8f);
             fade.black = true;
-            hp = 3;
+            hp = spawnhp;
         }
         else
 
         {
-            float x = Mathf.Clamp(rb2d.velocity.x, -10, 10);
+            float x = Mathf.Clamp(rb2d.velocity.x, -50, 50);
             float y = rb2d.velocity.y;
 
             rb2d.velocity = new Vector2(x, y);
@@ -616,7 +624,7 @@ public class PlayerMain : MonoBehaviour
                 if (transform.position.x > enemyTp.x)
                 {
                     StartCoroutine(Hittingnomove());
-                    rb2d.velocity = new Vector2(rb2d.velocity.x + 20, 0);
+                    rb2d.velocity = new Vector2(rb2d.velocity.x + 40, 0);
                     animator.SetTrigger("Hit");
                     hit = false;
                     //StartCoroutine(hittingnomove());
@@ -624,7 +632,7 @@ public class PlayerMain : MonoBehaviour
                 else if (transform.position.x < enemyTp.x)
                 {
                     StartCoroutine(Hittingnomove());
-                    rb2d.velocity = new Vector2(rb2d.velocity.x - 20, 0);
+                    rb2d.velocity = new Vector2(rb2d.velocity.x - 40, 0);
                     animator.SetTrigger("Hit");
                     hit = false;
                     //StartCoroutine(hittingnomove());
@@ -653,7 +661,7 @@ public class PlayerMain : MonoBehaviour
         {
             transform.position = new Vector2(-20f, -8f);
             fade.black = true;
-            hp = 3;
+           // hp = 3;
         }
         else
 

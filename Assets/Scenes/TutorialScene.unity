@@ -2101,6 +2101,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1024
   hp: 10
+  spawnhp: 5
   isRight: 0
   isWall: 0
   slidingSpeed: 0.5
