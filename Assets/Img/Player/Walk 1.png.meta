@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 6c9ae2f4046b6784583d7ad1dd437681
+guid: 82b7b2e35f0d3854b8f346a78ddb9d8f
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -47,7 +47,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 40
+  spritePixelsToUnits: 200
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -100,131 +100,80 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: TEXT (1)_0
+      name: Walk_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 1192
-        width: 893
-        height: 181
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 20
+        y: 50
+        width: 560
+        height: 990
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e9bcc790310fc62499460d52980b81db
-      internalID: 587439329
+      spriteID: 11a92030ece6641498f3e2e4abdf796e
+      internalID: -454369060
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TEXT (1)_1
+      name: Walk_1
       rect:
         serializedVersion: 2
-        x: 0
-        y: 939
-        width: 1067
-        height: 181
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 690
+        y: 50
+        width: 510
+        height: 970
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 31c3a5e308d90aa4f8c9c7299b8b4fe2
-      internalID: 1080674061
+      spriteID: eefafff324e0fcb4790303dde6738cf1
+      internalID: -498226087
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TEXT (1)_2
+      name: Walk_2
       rect:
         serializedVersion: 2
-        x: 0
-        y: 704
-        width: 1067
-        height: 181
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 1260
+        y: 80
+        width: 500
+        height: 960
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 58d7c86bdcfef8b4984ad1224ee28f73
-      internalID: -1225627915
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: TEXT (1)_3
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 451
-        width: 1323
-        height: 181
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 3ea7f53ab59704f418d3e565722f05ab
-      internalID: 1665529838
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: TEXT (1)_4
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 235
-        width: 1323
-        height: 181
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 5c8c23d3044764942bbf2512e2abe6a3
-      internalID: 2088858717
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: TEXT (1)_5
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 1
-        width: 438
-        height: 180
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: bdd68b68a89ca194cb8b33c8f927179a
-      internalID: 2103560278
+      spriteID: ed7471ab7e8eaac408ca5e26600a36da
+      internalID: 2043480527
       vertices: []
       indices: 
       edges: []
@@ -240,12 +189,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      TEXT (1)_5: 2103560278
-      TEXT (1)_4: 2088858717
-      TEXT (1)_1: 1080674061
-      TEXT (1)_0: 587439329
-      TEXT (1)_3: 1665529838
-      TEXT (1)_2: -1225627915
+      Walk_0: -454369060
+      Walk_2: 2043480527
+      Walk_1: -498226087
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

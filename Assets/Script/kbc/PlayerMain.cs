@@ -579,7 +579,7 @@ public class PlayerMain : MonoBehaviour
                 if (transform.position.x > enemy2Tp.x)
                 {
                     StartCoroutine(Hittingnomove());
-                    rb2d.velocity = new Vector2(rb2d.velocity.x + 40, 0);
+                    rb2d.velocity = new Vector2(rb2d.velocity.x + 30, 0);
                     animator.SetTrigger("Hit");
                     hit = false;
                     //StartCoroutine(hittingnomove());
@@ -587,7 +587,7 @@ public class PlayerMain : MonoBehaviour
                 else if (transform.position.x < enemy2Tp.x)
                 {
                     StartCoroutine(Hittingnomove());
-                    rb2d.velocity = new Vector2(rb2d.velocity.x - 40, 0);
+                    rb2d.velocity = new Vector2(rb2d.velocity.x - 30, 0);
                     animator.SetTrigger("Hit");
                     hit = false;
                     //StartCoroutine(hittingnomove());
@@ -624,7 +624,7 @@ public class PlayerMain : MonoBehaviour
                 if (transform.position.x > enemyTp.x)
                 {
                     StartCoroutine(Hittingnomove());
-                    rb2d.velocity = new Vector2(rb2d.velocity.x + 40, 0);
+                    rb2d.velocity = new Vector2(rb2d.velocity.x + 30, 0);
                     animator.SetTrigger("Hit");
                     hit = false;
                     //StartCoroutine(hittingnomove());
@@ -632,7 +632,7 @@ public class PlayerMain : MonoBehaviour
                 else if (transform.position.x < enemyTp.x)
                 {
                     StartCoroutine(Hittingnomove());
-                    rb2d.velocity = new Vector2(rb2d.velocity.x - 40, 0);
+                    rb2d.velocity = new Vector2(rb2d.velocity.x - 30, 0);
                     animator.SetTrigger("Hit");
                     hit = false;
                     //StartCoroutine(hittingnomove());

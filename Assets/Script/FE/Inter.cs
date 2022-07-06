@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Inter : MonoBehaviour
 {
@@ -46,11 +47,14 @@ public class Inter : MonoBehaviour
 
         if (PlayerMain.interactionhas == true)
         {
+
             alp += Time.deltaTime;
+            fade.black = true;
             
-            
-            if(alp > 0.5f)
+            if(alp > 1f)
             {
+
+                SceneManager.LoadScene("realityroom");
                 Debug.Log("hello"); //È®ÀÎ¿ë
                 
                 alp = 0;
