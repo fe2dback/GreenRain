@@ -563,6 +563,10 @@ public class PlayerMain : MonoBehaviour
 
         if (hp <= 0)
         {
+            if (GateMain.nextL == 1)
+            {
+                transform.position = new Vector2(-15f, 145f);
+            }
             transform.position = new Vector2(-20f, -8f);
             fade.black = true;
             hp = spawnhp;
@@ -608,6 +612,10 @@ public class PlayerMain : MonoBehaviour
         if (hp <= 0)
         {
             Debug.Log("Player Dead");
+            if(GateMain.nextL == 1)
+            {
+                transform.position = new Vector2(-15f, 145f);
+            }
             transform.position = new Vector2(-20f, -8f);
             fade.black = true;
             hp = spawnhp;
@@ -659,6 +667,10 @@ public class PlayerMain : MonoBehaviour
 
         if (hp <= 0)
         {
+            if (GateMain.nextL == 1)
+            {
+                transform.position = new Vector2(-15f, 145f);
+            }
             transform.position = new Vector2(-20f, -8f);
             fade.black = true;
            // hp = 3;

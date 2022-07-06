@@ -6,6 +6,13 @@ public class GateMain : MonoBehaviour
 {
     public GameObject targetObj;
     public GameObject toObj;
+    public static int nextL;
+    public int nextR;
+
+    void Start()
+    {
+        nextL = nextR;
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -20,6 +27,7 @@ public class GateMain : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             StartCoroutine(TeleoportRoutine());
+            nextR = 1;
         }
     }
     IEnumerator TeleoportRoutine()
@@ -33,5 +41,7 @@ public class GateMain : MonoBehaviour
 
         yield return new WaitForSeconds(0.7f);
         targetObj.GetComponent<PlayerMain>().isControl = true;
+        
+
     }
 }

@@ -26,7 +26,7 @@ public class BtnType : MonoBehaviour
 
             case BTNType.Quit:
                 Application.Quit();
-                UnityEditor.EditorApplication.isPlaying = false;
+                //UnityEditor.EditorApplication.isPlaying = false;
                 break;
         }
     }
