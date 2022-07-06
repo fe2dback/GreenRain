@@ -71,8 +71,9 @@ public class PlayerMain : MonoBehaviour
     public static bool enemyCheck;
     public static bool enemy2Check;
 
-    //public static Vector3 enemyTp;
+    public static Vector3 enemyTp;
     public static Vector3 enemy2Tp;
+
 
     public AudioClip attackClip;
     public AudioClip skillClip;
@@ -352,13 +353,13 @@ public class PlayerMain : MonoBehaviour
         
         if (isMoving == true && walkCheck == false)
         {
-            audioSrc.Play();
+            //audioSrc.Play();
             walkCheck = true;
 
         }
         else if(isMoving == false && walkCheck == true)
         {
-            audioSrc.Stop();
+            //audioSrc.Stop();
             walkCheck = false;
         }
         
@@ -483,6 +484,17 @@ public class PlayerMain : MonoBehaviour
 
                             //Debug.Log("10");
                         }
+                        else if(c2d1.tag == "Enemy(x)")
+                        {
+                            if (criCheck == true)
+                            {
+                                criDmg = 2;
+                                c2d1.GetComponent<EnemyMain2>().TakeDamage(Random.Range(200 * (int)criDmg, 299 * (int)criDmg));
+
+                                continue;
+                            }
+                            c2d1.GetComponent<EnemyMain2>().TakeDamage(Random.Range(200, 299));
+                        }
                         else if(c2d1.tag == "Enemy2")
                         {
                             if (criCheck == true)
@@ -597,11 +609,32 @@ public class PlayerMain : MonoBehaviour
             float y = rb2d.velocity.y;
 
             rb2d.velocity = new Vector2(x, y);
-
+            if(isControl == true)
+            {
+                if (transform.position.x > enemyTp.x)
+                {
+                    StartCoroutine(Hittingnomove());
+                    rb2d.velocity = new Vector2(rb2d.velocity.x + 20, 0);
+                    animator.SetTrigger("Hit");
+                    hit = false;
+                    //StartCoroutine(hittingnomove());
+                }
+                else if (transform.position.x < enemyTp.x)
+                {
+                    StartCoroutine(Hittingnomove());
+                    rb2d.velocity = new Vector2(rb2d.velocity.x - 20, 0);
+                    animator.SetTrigger("Hit");
+                    hit = false;
+                    //StartCoroutine(hittingnomove());
+                }
+            }
+            
+            /*
             rb2d.velocity = new Vector2(rb2d.velocity.x - 20, 0);
             animator.SetTrigger("Hit");
             hit = false;
             StartCoroutine(Hittingnomove());
+            */
 
 
         }
@@ -656,6 +689,14 @@ public class PlayerMain : MonoBehaviour
         enemy2Tp = tp;
 
     }
+
+    public void enemyVelocity(Vector3 tp)
+    {
+        enemyTp = tp;
+
+    }
+
+
 
     private void WallJumpCheck()
     {

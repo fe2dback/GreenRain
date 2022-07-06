@@ -18,6 +18,7 @@ public class SoundManager : MonoBehaviour
             instance = this;
             DontDestroyOnLoad(instance);
             DontDestroyOnLoad(audioSrc);
+            DontDestroyOnLoad(musicsource);
         }
         else
         {
@@ -59,7 +60,7 @@ public class SoundManager : MonoBehaviour
     {
         musicsource.volume = volume;
         soundVolume = volume;
-        DontDestroyOnLoad(musicsource);
+        //DontDestroyOnLoad(musicsource);
     }
 
     public void MusicStop(bool stop)

@@ -28,6 +28,11 @@ public class PlayerBullet : MonoBehaviour
                 ray.collider.GetComponent<EnemyMain>().TakeDamage(Random.Range(1000, 1100));
                 Debug.Log("스킬타격");
             }
+            else if(ray.collider.tag == "Enemy(x)")
+            {
+                ray.collider.GetComponent<EnemyMain2>().TakeDamage(Random.Range(1000, 1100));
+                Debug.Log("스킬타격");
+            }
             else if (ray.collider.tag == "Enemy2")
             {
                 ray.collider.GetComponent<Enemy2Main>().TakeDamage(Random.Range(500, 601));

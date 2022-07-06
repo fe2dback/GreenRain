@@ -8,6 +8,7 @@ public class MainCamera : MonoBehaviour
     public static bool black;
 
     public Transform target;
+    private Vector3 targetPos;
     public float speed;
 
     public Vector2 center;
@@ -23,6 +24,7 @@ public class MainCamera : MonoBehaviour
         
         height = Camera.main.orthographicSize;
         widht = height * Screen.width / Screen.height;
+        targetPos = target.position;
     }
 
     private void OnDrawGizmos()
@@ -30,14 +32,18 @@ public class MainCamera : MonoBehaviour
         Gizmos.color = Color.red;
         Gizmos.DrawWireCube(center, size);
     }
-    
-    
+
+    void Update()
+    {
+        targetPos = new Vector3(target.position.x + 5, target.position.y + 7, target.position.z);
+    }
 
     // Update is called once per frame
     void LateUpdate()
     {
+
         //transform.position = new Vector3(target.position.x, target.position.y, -10f);
-        transform.position = Vector3.Lerp(transform.position, target.position /* 1.15f*/, Time.deltaTime * speed);
+        transform.position = Vector3.Lerp(transform.position, targetPos /* 1.15f*/, Time.deltaTime * speed);
         //transform.position = new Vector3(transform.position.x, transform.position.y, -10f);
         float x = size.x * 0.5f - widht;
         float clampX = Mathf.Clamp(transform.position.x, -x + center.x, x + center.x);

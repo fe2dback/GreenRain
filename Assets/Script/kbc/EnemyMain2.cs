@@ -2,14 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyMain : MonoBehaviour
+public class EnemyMain2 : MonoBehaviour
 {
     private Rigidbody2D rb2d1;
     private Animator animator;
     private Transform check;
     public int hp;
 
-    
+
     public float distance;
     public LayerMask isLayer;
 
@@ -28,6 +28,8 @@ public class EnemyMain : MonoBehaviour
     public GameObject hudDamageText;
     public Transform hudPos;
 
+    public static bool Rs;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -36,7 +38,8 @@ public class EnemyMain : MonoBehaviour
         check = transform.Find("Check");
         pos = transform.Find("bullet");
         isControl = true;
-        
+        Rs = false;
+
     }
 
     // Update is called once per frame
@@ -49,16 +52,16 @@ public class EnemyMain : MonoBehaviour
     {
         EnemyMove();
         deadTime();
-        
+
     }
 
-   
+
 
     private void EnemyMove()
     {
         if (isControl == true)
         {
-            RaycastHit2D raycast = Physics2D.Raycast(transform.position, transform.right * -1, distance, isLayer);
+            RaycastHit2D raycast = Physics2D.Raycast(transform.position, transform.right, distance, isLayer);
             if (raycast.collider != null)
             {
 
@@ -67,9 +70,14 @@ public class EnemyMain : MonoBehaviour
                 {
                     if (currentTime <= 0)
                     {
-                        EnemyMain2.Rs = false;
-                        GameObject bulletCopy = Instantiate(bullet, pos.position, transform.rotation);
+                        //bullet.GetComponent<Bullet>().localScaleCheck(true);
+                        Rs = true;
                         animator.SetTrigger("Shoot");
+                        GameObject bulletCopy = Instantiate(bullet, pos.position, Quaternion.Euler(0, 180, 0));
+                        
+                        
+                        //GameObject bulletCopy = Instantiate(bullet, pos.position, transform.rotation);
+                        //animator.SetTrigger("Shoot");
 
                         currentTime = coolTime;
                     }
@@ -93,7 +101,7 @@ public class EnemyMain : MonoBehaviour
 
         hp -= damage;
         //rb2d.velocity = Vector2.zero;
-        if(hp <= 0)
+        if (hp <= 0)
         {
             isControl = false;
             Debug.Log("Monster Dead");
@@ -101,7 +109,7 @@ public class EnemyMain : MonoBehaviour
         }
         else
         {
-            if(isControl == true)
+            if (isControl == true)
             {
                 if (transform.position.x > PlayerMain.rb2d.transform.position.x)
                 {
@@ -114,9 +122,9 @@ public class EnemyMain : MonoBehaviour
                     animator.SetTrigger("Hit");
                 }
             }
-            
+
         }
-        
+
 
     }
     private void deadTime()
