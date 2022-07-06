@@ -256,6 +256,10 @@ public class PlayerMain : MonoBehaviour
                 jumpCount = 2;
                 break;
             }
+            else if(c2d.gameObject.layer == 13)
+            {
+                PlayerDamage(10);
+            }
         }
     }
 
