@@ -361,13 +361,13 @@ public class PlayerMain : MonoBehaviour
         
         if (isMoving == true && walkCheck == false)
         {
-            //audioSrc.Play();
+            audioSrc.Play();
             walkCheck = true;
 
         }
         else if(isMoving == false && walkCheck == true)
         {
-            //audioSrc.Stop();
+            audioSrc.Stop();
             walkCheck = false;
         }
         

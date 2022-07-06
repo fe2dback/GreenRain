@@ -2113,9 +2113,9 @@ MonoBehaviour:
   criDmg: 0
   bullet: {fileID: 836150384134979538, guid: 7bb040a14dd455e449caca21454c78a4, type: 3}
   SkillPos: {fileID: 1325473416}
-  skillCoolTime: 5
+  skillCoolTime: 3
   per: 0.5
-  duration: 5
+  duration: 3
   icon: {fileID: -659080107, guid: 195f613f8d043a9459b65b2e2cdd10c8, type: 3}
   attackClip: {fileID: 8300000, guid: c0d29c3c7f6ce51448b92e4740f54af3, type: 3}
   skillClip: {fileID: 8300000, guid: 3f65c9da244f4a34e8c3d81a750e94aa, type: 3}
@@ -2149,7 +2149,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 271743469}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -17.1, y: 145.8, z: 0}
+  m_LocalPosition: {x: -23.4, y: -7.6, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

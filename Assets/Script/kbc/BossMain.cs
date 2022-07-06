@@ -194,13 +194,13 @@ public class BossMain : MonoBehaviour
             {
                 if (transform.position.x > PlayerMain.rb2d.transform.position.x)
                 {
-                    bossRb2d.velocity = new Vector2(bossRb2d.velocity.x + 20, 0);
-                    //animator.SetTrigger("Hit");
+                    bossRb2d.velocity = new Vector2(bossRb2d.velocity.x + 30, 0);
+                    animator.SetTrigger("Hit");
                 }
                 else
                 {
-                    bossRb2d.velocity = new Vector2(bossRb2d.velocity.x - 20, 0);
-                    //animator.SetTrigger("Hit");
+                    bossRb2d.velocity = new Vector2(bossRb2d.velocity.x - 30, 0);
+                    animator.SetTrigger("Hit");
                 }
             }
         }
