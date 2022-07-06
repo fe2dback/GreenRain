@@ -21,7 +21,7 @@ public class fe_3 : MonoBehaviour
 
         {
             int rs = Random.Range(5, 30);
-            int rd = Random.Range(-50, 400);
+            int rd = Random.Range(-50, 450);
             i.transform.position -= new Vector3(0, rs, 0) ;
 
             if(i.transform.position.y < -15f)
