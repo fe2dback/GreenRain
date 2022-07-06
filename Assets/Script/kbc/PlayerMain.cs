@@ -241,6 +241,7 @@ public class PlayerMain : MonoBehaviour
             {
                 PlayerDamage(1);
                 isGrounded = true;
+                
                 animator.SetTrigger("Idle");
                 jumpCount = 2;
                 break;
@@ -248,6 +249,7 @@ public class PlayerMain : MonoBehaviour
             else if (c2d.gameObject.layer == 8)//enemy
             {
                 PlayerDamage(1);
+                
                 isGrounded = true;
                 animator.SetTrigger("Idle");
                 jumpCount = 2;
@@ -560,7 +562,7 @@ public class PlayerMain : MonoBehaviour
         else
 
         {
-            float x = Mathf.Clamp(rb2d.velocity.x, -10, 10) ;
+            float x = Mathf.Clamp(rb2d.velocity.x, -30, 30) ;
             float y = rb2d.velocity.y;
 
             rb2d.velocity = new Vector2(x, y);
@@ -714,7 +716,7 @@ public class PlayerMain : MonoBehaviour
             jumpCount = 2;
         }
         
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds(0.5f);
         
         isControl = true;
     }
