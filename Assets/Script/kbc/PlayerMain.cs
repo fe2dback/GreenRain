@@ -570,6 +570,7 @@ public class PlayerMain : MonoBehaviour
             if (GateMain.nextL == 1)
             {
                 transform.position = new Vector2(-15f, 145f);
+                hp = spawnhp;
             }
             transform.position = new Vector2(-20f, -8f);
             fade.black = true;
@@ -619,6 +620,7 @@ public class PlayerMain : MonoBehaviour
             if(GateMain.nextL == 1)
             {
                 transform.position = new Vector2(-15f, 145f);
+                hp = spawnhp;
             }
             transform.position = new Vector2(-20f, -8f);
             fade.black = true;
@@ -674,10 +676,12 @@ public class PlayerMain : MonoBehaviour
             if (GateMain.nextL == 1)
             {
                 transform.position = new Vector2(-15f, 145f);
+                hp = spawnhp;
             }
             transform.position = new Vector2(-20f, -8f);
             fade.black = true;
-           // hp = 3;
+            hp = spawnhp;
+            // hp = 3;
         }
         else
 
