@@ -12,7 +12,12 @@ public class BtnType : MonoBehaviour
     {
         switch(currentType)
         {
+            case BTNType.GameStart:
+                SceneManager.LoadScene("Video");
+                break;
+
             case BTNType.NewGame:
+                Debug.Log("넘어가기");
                 SceneManager.LoadScene("TutorialScene");
                 break;
 

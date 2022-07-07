@@ -4,6 +4,7 @@ using UnityEngine;
 
 public enum BTNType
 {
+    GameStart,
     NewGame,
     Option,
     Sound,
